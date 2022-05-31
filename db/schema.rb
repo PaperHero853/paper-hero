@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_31_111338) do
+ActiveRecord::Schema.define(version: 2022_05_31_123845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cells", force: :cascade do |t|
+    t.boolean "full", default: false
+    t.boolean "hit", default: false
+    t.boolean "visible", default: false
+    t.integer "position"
+    t.bigint "grid_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["grid_id"], name: "index_cells_on_grid_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.boolean "ongoing", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "grids", force: :cascade do |t|
+    t.boolean "creator", default: false
+    t.boolean "win", default: false
+    t.boolean "playing", default: false
+    t.bigint "game_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_grids_on_game_id"
+    t.index ["user_id"], name: "index_grids_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +52,12 @@ ActiveRecord::Schema.define(version: 2022_05_31_111338) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cells", "grids"
+  add_foreign_key "grids", "games"
+  add_foreign_key "grids", "users"
 end
