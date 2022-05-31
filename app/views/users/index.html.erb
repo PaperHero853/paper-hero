@@ -1,0 +1,8 @@
+
+<ul class="list-group">
+  <% @users.each do |user| %>
+    <li class="list-group-item"><%= user.username %></li>
+    <li class="list-group-item"><%= user.email %></li>
+    <li class="list-group-item"><%= user.photo %></li>
+  <% end %>
+</ul>

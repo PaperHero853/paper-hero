@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :grids, dependent: :destroy
   has_many :games, through: :grids
+  has_one_attached :photo
+
+  validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
+  validates :email, presence: true, uniqueness: true
 end
