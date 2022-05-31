@@ -1,7 +1,7 @@
 <div class="container">
   <div style="display:flex;flex-direction:row;justify-content:space-around;">
     <div class="user-game">
-      <h2><%= @game.id %></h2>
+      <h2><%= current_user.username %></h2>
       <table class="player-table">
         <% cell_number = 1 %>
         <% rows = 10 %>
@@ -20,7 +20,7 @@
       </table>
     </div>
     <div class="opponent-game">
-      <h2><%= @game.id %></h2>
+      <h2><%= @grid_opponent.user.username %></h2>
       <table class="opponent-table">
         <% cell_number = 1 %>
         <% rows = 10 %>
