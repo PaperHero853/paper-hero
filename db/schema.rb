@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2022_05_31_123845) do
   enable_extension "plpgsql"
 
   create_table "cells", force: :cascade do |t|
-    t.boolean "full"
-    t.boolean "hit"
-    t.boolean "visible"
+    t.boolean "full", default: false
+    t.boolean "hit", default: false
+    t.boolean "visible", default: false
     t.integer "position"
     t.bigint "grid_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -27,15 +27,15 @@ ActiveRecord::Schema.define(version: 2022_05_31_123845) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.boolean "ongoing"
+    t.boolean "ongoing", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "grids", force: :cascade do |t|
-    t.boolean "creator"
-    t.boolean "win"
-    t.boolean "playing"
+    t.boolean "creator", default: false
+    t.boolean "win", default: false
+    t.boolean "playing", default: false
     t.bigint "game_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
