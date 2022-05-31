@@ -1,15 +1,42 @@
 <div class="container">
-  <h2><%= @game.id %></h2>
-
-  <table class="player-table">
-    <% cell_number = 1 %>
-      <%= 10.times do  %>
-        <tr>
-        <%= 10.times do %>
-          <td style="background-color:blue;"><%= cell_number %></td>
-          <% cell_number += 1 %>
+  <div style="display:flex;flex-direction:row;justify-content:space-around;">
+    <div class="user-game">
+      <h2><%= @game.id %></h2>
+      <table class="player-table">
+        <% cell_number = 1 %>
+        <% rows = 10 %>
+          <% rows.times do  %>
+            <tr>
+            <% rows.times do %>
+              <% if @current_user_full.include?(cell_number) %>
+              <td style="background-color:red; border:1px solid;height:<%= 300 / rows %>px;width:<%= 300 / rows %>px"><%= cell_number %></td>
+              <% else %>
+                <td style="background-color:cyan; border:1px solid;height:<%= 300 / rows %>px;width:<%= 300 / rows %>px"></td>
+              <% end %>
+              <% cell_number += 1 %>
+            <% end %>
+          </tr>
         <% end %>
-       </tr>
-    <% end %>
-  </table>
+      </table>
+    </div>
+    <div class="opponent-game">
+      <h2><%= @game.id %></h2>
+      <table class="opponent-table">
+        <% cell_number = 1 %>
+        <% rows = 10 %>
+          <% rows.times do  %>
+            <tr>
+            <% rows.times do %>
+              <% if @opponent_full.include?(cell_number) %>
+              <td style="background-color:red; border:1px solid;height:<%= 300 / rows %>px;width:<%= 300 / rows %>px"><%= cell_number %></td>
+              <% else %>
+                <td style="background-color:cyan; border:1px solid;height:<%= 300 / rows %>px;width:<%= 300 / rows %>px"></td>
+              <% end %>
+              <% cell_number += 1 %>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>

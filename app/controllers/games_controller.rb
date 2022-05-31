@@ -18,6 +18,7 @@ class GamesController < ApplicationController
         game_params
         redirect_to game_path(@game)
       else
+        render :errors
       end
     else
       render :new
@@ -26,6 +27,19 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    grids = Grid.where(game_id: @game.id)
+    if grids.first.user_id == current_user.id
+      @grid_current_user = grids.first
+      @cells_current_user = Cell.where(grid_id: @grid_current_user.id)
+      @grid_opponent = grids.last
+    else
+      @grid_current_user = grids.last
+      @grid_opponent = grids.first
+    end
+    @cells_current_user = Cell.where(grid_id: @grid_current_user.id).order(id: :asc)
+    @cells_opponent = Cell.where(grid_id: @grid_opponent.id).order(id: :asc)
+    @current_user_full = full_locations(@cells_current_user)
+    @opponent_full = full_locations(@cells_opponent)
   end
 
   private
@@ -40,6 +54,16 @@ class GamesController < ApplicationController
       cell.save
       int += 1
     end
+  end
+
+  def full_locations(cells)
+    output = []
+    cells.each do |cell|
+      if cell.full
+        output << cell.position
+      end
+    end
+    output
   end
 
   def game_params
