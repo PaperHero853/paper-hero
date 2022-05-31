@@ -1,0 +1,14 @@
+<div class="container">
+  <h2> Create a game</h2>
+  <hr>
+  <%= simple_form_for(@game) do |f| %>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+          <p>Choose your opponent</p><%= f.association :users, include_hidden: false, :label_method => lambda { |user| "#{user.username}" } %>
+      </div>
+      <div>
+          <%= f.submit "Create", class: "btn btn-flat" %>
+      </div>
+    </div>
+  <% end %>
+</div>

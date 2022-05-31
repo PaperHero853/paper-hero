@@ -1,0 +1,15 @@
+<div class="container">
+  <h2><%= @game.id %></h2>
+
+  <table class="player-table">
+    <% cell_number = 1 %>
+      <%= 10.times do  %>
+        <tr>
+        <%= 10.times do %>
+          <td style="background-color:blue;"><%= cell_number %></td>
+          <% cell_number += 1 %>
+        <% end %>
+       </tr>
+    <% end %>
+  </table>
+</div>
