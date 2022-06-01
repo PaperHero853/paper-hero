@@ -1,2 +1,19 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_url('banner.jpg') %>');">
+  <div class="b-content">
+    <div class="container">
+      <%= image_tag "PaperHero_logo.png", class:"logo" %>
+    </div>
+    <div class="container">
+      <h1><strong>Let the papers fly!</strong></h1>
+      <p>There can only be one Hero. Challenge your friends to an epic paper battle.</p>
+      <%= link_to "Play now!", "users/sign_in", class: "btn btn-gradient" %>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-copyright">
+    This open-source game was made with <i class="fas fa-heart"></i> by
+    <a href="#"><i class="fab fa-github"></i></a>
+  </div>
+</div>
