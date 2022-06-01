@@ -7,6 +7,7 @@
       <h1><strong>Let the papers fly!</strong></h1>
       <p>There can only be one Hero. Challenge your friends to an epic paper battle.</p>
       <%= link_to "Play now!", "users/sign_in", class: "btn btn-gradient" %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-gradient" %>
     </div>
   </div>
 </div>
