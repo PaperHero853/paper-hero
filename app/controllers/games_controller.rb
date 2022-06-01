@@ -40,6 +40,7 @@ class GamesController < ApplicationController
     @cells_opponent = Cell.where(grid_id: @grid_opponent.id).order(id: :asc)
     @current_user_full = full_locations(@cells_current_user)
     @opponent_full = full_locations(@cells_opponent)
+    @grid_size = GRID_SIZE
   end
 
   private
@@ -47,6 +48,7 @@ class GamesController < ApplicationController
   def grid_creation(grid)
     desk_positions = (1..GRID_SIZE**2).to_a.sample(DESK_NUMBER)
     int = 1
+    @grid_size = GRID_SIZE
     (GRID_SIZE**2).times do
       cell = Cell.new(grid_id: grid.id)
       cell.position = int
