@@ -15,8 +15,11 @@
             %>
             <%= submit_tag "Search", class: "btn btn-flat" %>
           <% end %>
-
-          <%= f.association :users, include_hidden: false, :label_method => lambda { |user| "#{user.username}" } %>
+          <%= f.association :users,
+              collection: User.all,
+              include_hidden: false, 
+              as: :radio_buttons, 
+              label_method: lambda { |user| user.photo.key.nil? ? image_tag('leader.png') : cl_image_tag(user.photo.key) } %>
       </div>
       <div>
           <%= f.submit "Create", class: "btn btn-flat" %>
