@@ -1,0 +1,40 @@
+<div class="container">
+  <div style="display:flex;flex-direction:row;justify-content:space-around;">
+    <div class="grid user-grid">
+      <h2><%= @grid_current_user.user.username %></h2>
+      <table class="player-table">
+        <% cell_number = 1 %>
+        <% @grid_size.times do  %>
+          <tr>
+            <% @grid_size.times do %>
+              <% if @current_user_full.include?(cell_number) %>
+              <td style="background-color:red; border:1px solid;height:<%= 300 / @grid_size %>px;width:<%= 300 / @grid_size %>px"><%= cell_number %></td>
+              <% else %>
+                <td style="background-color:cyan; border:1px solid;height:<%= 300 / @grid_size %>px;width:<%= 300 / @grid_size %>px"></td>
+              <% end %>
+              <% cell_number += 1 %>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="grid opponent-grid">
+      <h2><%= @grid_opponent.user.username %></h2>
+      <table class="opponent-table">
+        <% cell_number = 1 %>
+        <% @grid_size.times do  %>
+          <tr>
+            <% @grid_size.times do %>
+              <% if @opponent_full.include?(cell_number) %>
+              <td style="background-color:red; border:1px solid;height:<%= 300 / @grid_size %>px;width:<%= 300 / @grid_size %>px"><%= cell_number %></td>
+              <% else %>
+                <td style="background-color:cyan; border:1px solid;height:<%= 300 / @grid_size %>px;width:<%= 300 / @grid_size %>px"></td>
+              <% end %>
+              <% cell_number += 1 %>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
