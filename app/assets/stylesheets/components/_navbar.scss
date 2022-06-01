@@ -1,6 +1,8 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: rgb(40, 40, 40);
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,5 +10,17 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+#user-name {
+  color: aliceblue;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+#navbarDropdown {
+  width: 60px;
+  cursor: pointer;
 }
