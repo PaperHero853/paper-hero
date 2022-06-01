@@ -46,6 +46,16 @@ class GamesController < ApplicationController
     @grid_size = GRID_SIZE
   end
 
+  def quit
+    @game = Game.find(params[:id])
+    @game.update(ongoing: false)
+    @grids = @game.grids
+    my_grid = @grids.find_by(user: current_user)
+    opponent_grid = @grids.where.not(id: my_grid.id).first
+    opponent_grid.update(win: true)
+    redirect_to @current_user
+  end
+
   private
 
   def grid_creation(grid)
