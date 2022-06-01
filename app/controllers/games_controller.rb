@@ -10,7 +10,7 @@ class GamesController < ApplicationController
     @game = Game.new(ongoing: true)
     if @game.save
       @grid_owner = Grid.new(game_id: @game.id, user_id: current_user.id, creator: true)
-      @grid_opponent = Grid.new(game_id: @game.id)
+      @grid_opponent = Grid.new(game_id: @game.id, playing: true)
       @grid_opponent.user_id = params[:game][:user_ids].first
       if @grid_owner.save && @grid_opponent.save
         grid_creation(@grid_owner)
