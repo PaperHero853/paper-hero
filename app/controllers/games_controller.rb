@@ -2,6 +2,9 @@ class GamesController < ApplicationController
   GRID_SIZE = 10
   DESK_NUMBER = 5
 
+  def index
+    @games = Game.all
+  end
   def new
     @game = Game.new
   end
@@ -41,6 +44,16 @@ class GamesController < ApplicationController
     @current_user_full = full_locations(@cells_current_user)
     @opponent_full = full_locations(@cells_opponent)
     @grid_size = GRID_SIZE
+  end
+
+  def quit
+    @game = Game.find(params[:id])
+    @game.update(ongoing: false)
+    @grids = @game.grids
+    my_grid = @grids.find_by(user: current_user)
+    opponent_grid = @grids.where.not(id: my_grid.id).first
+    opponent_grid.update(win: true)
+    redirect_to @current_user
   end
 
   private
