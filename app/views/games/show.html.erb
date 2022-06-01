@@ -2,44 +2,80 @@
 
 <div class="container">
   <%= link_to "Quit game", quit_game_path(@game), method: :patch, class: "btn btn-gradient" %>
-  <div class="container">
-    <div style="display:flex;flex-direction:row;justify-content:space-around;">
-      <div class="grid user-grid">
-        <h2><%= @grid_current_user.user.username %></h2>
-        <table class="player-table">
-          <% cell_number = 1 %>
-          <% @grid_size.times do  %>
+  <div style="display:flex;flex-direction:row;justify-content:space-around;">
+    <div class="grid user-grid">
+      <h2><%= @grid_current_user.user.username %></h2>
+      <p><%= @grid_current_user.playing ? "Please play!" : "Waits your turn!" %></p>
+      <table class="user-table" style="margin:20px;">
+        <% @cells_current_user.each do |cell|%>
+          <% if cell.position.modulo(@grid_size) == 1 %>
             <tr>
-              <% @grid_size.times do %>
-                <% if @current_user_full.include?(cell_number) %>
-                <td style="background-color:red; border:1px solid;height:<%= 300 / @grid_size %>px;width:<%= 300 / @grid_size %>px"><%= cell_number %></td>
-                <% else %>
-                  <td style="background-color:cyan; border:1px solid;height:<%= 300 / @grid_size %>px;width:<%= 300 / @grid_size %>px"></td>
-                <% end %>
-                <% cell_number += 1 %>
-              <% end %>
+          <% end %>
+          <% if cell.visible %>
+            <% if cell.hit %>
+              <td class="hit">
+                <div class="cell-link"></div>
+              </td>
+            <% else %>
+              <td class="missed">
+                <div class="cell-link"></div>
+              </td>
+            <% end %>
+          <% else %>
+            <% if cell.full %>
+              <td class="full">
+                <div class="cell-link"></div>
+              </td>
+            <% else %>
+              <td class="not-tested">
+                <div class="cell-link"></div>
+              </td>
+            <% end %>
+          <% end %>
+          <% if cell.position.modulo(@grid_size) == 0 %>
             </tr>
           <% end %>
-        </table>
-      </div>
-      <div class="grid opponent-grid">
-        <h2><%= @grid_opponent.user.username %></h2>
-        <table class="opponent-table">
-          <% cell_number = 1 %>
-          <% @grid_size.times do  %>
+        <% end %>
+      </table>
+    </div>
+
+
+    <div class="grid opponent-grid">
+      <h2><%= @grid_opponent.user.username %></h2>
+      <p><%= @grid_opponent.playing ? "Will play soon!" : "Waits its turn!" %></p>
+      <table class="opponent-table" style="margin:20px;">
+        <% @cells_opponent.each do |cell| %>
+          <% if cell.position.modulo(@grid_size) == 1 %>
             <tr>
-              <% @grid_size.times do %>
-                <% if @opponent_full.include?(cell_number) %>
-                <td style="background-color:red; border:1px solid;height:<%= 300 / @grid_size %>px;width:<%= 300 / @grid_size %>px"><%= cell_number %></td>
-                <% else %>
-                  <td style="background-color:cyan; border:1px solid;height:<%= 300 / @grid_size %>px;width:<%= 300 / @grid_size %>px"></td>
+          <% end %>
+          <% if cell.visible %>
+            <% if cell.hit %>
+              <td class="hit">
+                <div class="cell-link"></div>
+              </td>
+            <% else %>
+              <td class="missed">
+                <div class="cell-link"></div>
+              </td>
+            <% end %>
+          <% else %>
+            <% if @grid_current_user.playing %>
+              <td class="not-tested">
+                <%= link_to cell_path(cell.id) do %>
+                  <div class="cell-link"></div>
                 <% end %>
-                <% cell_number += 1 %>
-              <% end %>
+              </td>
+            <% else %>
+              <td class="not-tested">
+                <div class="cell-link"></div>
+              </td>
+            <% end %>
+          <% end %>
+          <% if cell.position.modulo(@grid_size) == 0 %>
             </tr>
           <% end %>
-        </table>
-      </div>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

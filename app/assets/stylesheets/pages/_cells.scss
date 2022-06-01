@@ -1,0 +1,25 @@
+td {
+  border:1px solid;
+  .cell-link {
+    // height: (300 / GRID_SIZE)px;
+    // width: (300 / GRID_SIZE)px;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+.not-tested {
+  background-color: cyan;
+}
+
+.full {
+  background-color: black;
+}
+
+.missed {
+  background-color: red;
+}
+
+.hit {
+  background-color: green;
+}
