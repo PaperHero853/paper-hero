@@ -46,9 +46,11 @@ class GamesController < ApplicationController
   def quit
     @game = Game.find(params[:id])
     @game.update(ongoing: false)
-    @grids = Grid.where(game_id: @game.id)
-    opponent_grid = @grids.where(user_id: !current_user.id)
+    @grids = @game.grids
+    my_grid = @grids.find_by(user: current_user)
+    opponent_grid = @grids.where.not(id: my_grid.id).first
     opponent_grid.update(win: true)
+    redirect_to @current_user
   end
 
   private

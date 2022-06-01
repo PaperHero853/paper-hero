@@ -1,8 +1,6 @@
 <div class="container">
-
-  <%= link_to "Quit game", #games_path(@game), class: "btn btn-gradient" %>
-  <%= link_to "Log out", #destroy_user_session_path, method: :delete, class: "btn btn-gradient" %>
-  <%# redirect to user_show %>
+<% console %>
+  <%= link_to "Quit game", quit_game_path(@game), method: :patch, class: "btn btn-gradient" %>
   <div class="container">
     <div style="display:flex;flex-direction:row;justify-content:space-around;">
       <div class="grid user-grid">
