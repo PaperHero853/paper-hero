@@ -1,6 +1,8 @@
 .navbar-lewagon {
   justify-content: space-between;
   background: rgb(40, 40, 40);
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -14,8 +16,11 @@
 
 #user-name {
   color: aliceblue;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 #navbarDropdown {
   width: 60px;
+  cursor: pointer;
 }

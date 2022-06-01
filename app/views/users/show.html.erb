@@ -1,7 +1,14 @@
 <%= render 'shared/navbar' %>
 
-<h1>coucou je suis <%= current_user.username %></h1>
-
-<%= link_to "Create a new game", new_game_path(@game), class: "btn btn-gradient" %>
-<%= link_to "Join existing game", games_path(@game), class: "btn btn-gradient" %>
-<%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-gradient" %>
+<div class="container">
+  <h1>Hi <%= current_user.username %></h1>
+  <h1>Let's play!</h1>
+  <div>
+    <%= link_to "Create a new game", new_game_path(@game), class: "btn btn-gradient" %>
+    <%= link_to "Join existing game", games_path(@game), class: "btn btn-gradient" %>
+    <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-gradient" %>
+  </div>
+  <div>
+    <%# insert Player historic here %>
+  </div>
+</div>
