@@ -9,7 +9,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(ongoing: true)
     if @game.save
-      @grid_owner = Grid.new(game_id: @game.id, user_id: current_user.id, creator: true)
+      @grid_owner = Grid.new(game_id: @game.id, user_id: current_user.id, creator: true, playing: false)
       @grid_opponent = Grid.new(game_id: @game.id, playing: true)
       @grid_opponent.user_id = params[:game][:user_ids].first
       if @grid_owner.save && @grid_opponent.save
@@ -36,8 +36,8 @@ class GamesController < ApplicationController
       @grid_current_user = grids.last
       @grid_opponent = grids.first
     end
-    @cells_current_user = Cell.where(grid_id: @grid_current_user.id).order(id: :asc)
-    @cells_opponent = Cell.where(grid_id: @grid_opponent.id).order(id: :asc)
+    @cells_current_user = Cell.where(grid_id: @grid_current_user.id).order(position: :asc)
+    @cells_opponent = Cell.where(grid_id: @grid_opponent.id).order(position: :asc)
     @current_user_full = full_locations(@cells_current_user)
     @opponent_full = full_locations(@cells_opponent)
     @grid_size = GRID_SIZE
