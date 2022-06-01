@@ -15,12 +15,13 @@ class GamesController < ApplicationController
       if @grid_owner.save && @grid_opponent.save
         grid_creation(@grid_owner)
         grid_creation(@grid_opponent)
-        game_params
         redirect_to game_path(@game)
       else
-        render :errors
+        flash[:notice] = "Sorry, something went wrong during the game creation!"
+        render :new
       end
     else
+      flash[:notice] = "Sorry, something went wrong during the game creation!"
       render :new
     end
   end
@@ -30,7 +31,6 @@ class GamesController < ApplicationController
     grids = Grid.where(game_id: @game.id)
     if grids.first.user_id == current_user.id
       @grid_current_user = grids.first
-      @cells_current_user = Cell.where(grid_id: @grid_current_user.id)
       @grid_opponent = grids.last
     else
       @grid_current_user = grids.last
@@ -48,7 +48,6 @@ class GamesController < ApplicationController
   def grid_creation(grid)
     desk_positions = (1..GRID_SIZE**2).to_a.sample(DESK_NUMBER)
     int = 1
-    @grid_size = GRID_SIZE
     (GRID_SIZE**2).times do
       cell = Cell.new(grid_id: grid.id)
       cell.position = int
