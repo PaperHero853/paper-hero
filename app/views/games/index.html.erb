@@ -8,7 +8,7 @@
         <% current_user.games.each do |game| %>
           <div class="card">
             <div class="card-info">
-              <% grids = Grid.where(game_id: game.id) %>
+              <% grids = Grid.where(game_id: game.id, ongoing: true) %>
               <% opponent_grid = grids.first.user_id == current_user.id ? grids.last : grids.first %>
               <% opponent_name = User.find(opponent_grid.user_id).username %>
               <h3><%= link_to "Game vs #{opponent_name}", game_path(game) %></h3>
