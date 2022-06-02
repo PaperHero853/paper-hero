@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   GRID_SIZE = 10
-  DESK_NUMBER = 5
+  DESK_NUMBER = 16
   DESKS = [[3, 2], [2, 2], [2, 2], [2, 1]]
 
   def configure_permitted_parameters

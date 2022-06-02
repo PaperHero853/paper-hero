@@ -114,6 +114,7 @@ class GamesController < ApplicationController
         area(desk, position).each do |pos|
           cell = Cell.where(grid_id: grid.id, position: pos).first
           cell.update(full: true)
+          byebug
         end
       else
         flash[:notice] = "Sorry, something went wrong during the desk #{desk.first}x#{desk.last} positioning!"
