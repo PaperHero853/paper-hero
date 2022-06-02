@@ -1,4 +1,8 @@
 class GamesController < ApplicationController
+
+  GRID_SIZE = 10
+  DESK_NUMBER = 5
+
   def index
     @games = Game.all
   end
@@ -70,9 +74,7 @@ class GamesController < ApplicationController
   def full_locations(cells)
     output = []
     cells.each do |cell|
-      if cell.full
-        output << cell.position
-      end
+      output << cell.position if cell.full
     end
     output
   end
