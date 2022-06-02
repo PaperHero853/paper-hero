@@ -1,8 +1,4 @@
 class GamesController < ApplicationController
-
-  GRID_SIZE = 10
-  DESK_NUMBER = 5
-
   def index
     @games = Game.all
   end
@@ -59,16 +55,86 @@ class GamesController < ApplicationController
 
   private
 
+  # def grid_creation(grid)
+  #   desk_positions = (1..GRID_SIZE**2).to_a.sample(DESK_NUMBER)
+  #   int = 1
+  #   (GRID_SIZE**2).times do
+  #     cell = Cell.new(grid_id: grid.id)
+  #     cell.position = int
+  #     cell.full = true if desk_positions.include?(cell.position)
+  #     cell.save
+  #     int += 1
+  #   end
+  # end
+
   def grid_creation(grid)
-    desk_positions = (1..GRID_SIZE**2).to_a.sample(DESK_NUMBER)
     int = 1
     (GRID_SIZE**2).times do
       cell = Cell.new(grid_id: grid.id)
       cell.position = int
-      cell.full = true if desk_positions.include?(cell.position)
-      cell.save
-      int += 1
+      if cell.save
+        int += 1
+      else
+        flash[:notice] = "Sorry, something went wrong during the cell save!"
+        render :new
+      end
     end
+    desks_positioning(grid)
+  end
+
+  def desks_positioning(grid)
+    count = 0
+    DESKS.each do |desk|
+      positions = (1..GRID_SIZE**2).to_a
+      desk = desk.sample(2)
+      cells = Cell.where(grid_id: grid.id, full: true)
+      if cells.empty?
+        full_locations = []
+      else
+        full_locations = cells.map{|ele| ele.position}
+      end
+      position = positions.sample
+      test_1 = (area(desk, position) & full_locations).size > 0
+      test_2 = (position.divmod(GRID_SIZE).last + (desk.first - 1)) > 10
+      test_3 = (position.divmod(GRID_SIZE).first + (desk.last - 1)) > 9
+      while test_1 || test_2 || test_3
+        test_1 = (area(desk, position) & full_locations).size > 0
+        test_2 = (position.divmod(GRID_SIZE).last + (desk.first - 1)) > 10
+        test_3 = (position.divmod(GRID_SIZE).first + (desk.last - 1)) > 9
+        if positions.empty?
+          flash[:notice] = "Sorry, no possibility to place the desks!"
+          raise
+        else
+          positions.delete(position)
+          position = positions.sample
+        end
+      end
+      desk_positioned = Desk.new(grid_id: grid.id, size_x: desk.first, size_y: desk.last)
+      if desk_positioned.save
+        area(desk, position).each do |pos|
+          cell = Cell.where(grid_id: grid.id, position: pos).first
+          cell.update(full: true)
+        end
+      else
+        flash[:notice] = "Sorry, something went wrong during the desk #{desk.first}x#{desk.last} positioning!"
+        render :new
+      end
+      count += 1
+    end
+  end
+
+  def area(desk, position)
+    area = []
+    y = 0
+    desk.last.times do
+      x = 0
+      desk.first.times do
+        area << (position + x + y)
+        x += 1
+      end
+      y += GRID_SIZE
+    end
+    area
   end
 
   def full_locations(cells)
