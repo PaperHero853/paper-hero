@@ -3,24 +3,50 @@
 <div class="container">
   <h2> Create a game</h2>
   <hr>
+  
   <%= simple_form_for(@game) do |f| %>
     <div class="row justify-content-center">
       <div class="col-auto">
-          <p>Choose your opponent</p>
-          <%= form_tag users_path, method: :get do %>
-            <%= text_field_tag :query,
-              params[:query],
-              classe: "form-control",
-              placeholder: "Type your opponent username"
-            %>
-            <%= submit_tag "Search", class: "btn btn-flat" %>
-          <% end %>
-
-          <%= f.association :users, include_hidden: false, :label_method => lambda { |user| "#{user.username}" } %>
+        <p>Choose your opponent</p>
+        <%= form_tag users_path, method: :get do %>
+          <%= text_field_tag :query,
+            params[:query],
+            classe: "form-control",
+            placeholder: "Type your opponent username" %>
+          <%= submit_tag "Search", class: "btn btn-gradient" %>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        <% end %>
+      <div>  
+      <%= f.submit "Create your game", class: "btn btn-gradient" %>
       </div>
-      <div>
-          <%= f.submit "Create", class: "btn btn-flat" %>
-      </div>
+    <div class="">
+      <%= f.association :users,
+          as: :radio_buttons, 
+          label: "",
+          collection: User.all.map { |user| 
+            [raw(
+              "<div class='notification'>
+                #{user.photo.key.nil? ? image_tag('leader.png', class: 'avatar-large') : cl_image_tag(user.photo.key, class: 'avatar-large')}
+                <div class='notification-content'>
+                  <p>#{user.username}</p>
+                </div>
+              </div>"
+              )
+            ]
+          },
+          item_label_class: "mb-0",
+          wrapper_class: "horizontal-scroll py-0",
+          item_wrapper_class: "col-7 col-md-5 col-lg-3 custom--media__miniature text-center" %>
+        </div>
     </div>
   <% end %>
 </div>
+          <%# <%= f.association :users,
+              collection: User.all,
+              include_hidden: false, 
+              as: :radio_buttons, 
+              label_method: lambda { |user| user.photo.key.nil? ? image_tag('leader.png') : cl_image_tag(user.photo.key) } %>
+      <%# </div> %> 
+
+
+
