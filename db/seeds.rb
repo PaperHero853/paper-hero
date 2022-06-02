@@ -5,8 +5,8 @@
 puts "Reset database..."
 
 # destroy methods here
-User.destroy_all if Rails.env.development?
-Game.destroy_all if Rails.env.development?
+User.destroy_all
+Game.destroy_all
 
 puts "Done"
 puts "-------------------------"
