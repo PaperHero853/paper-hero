@@ -1,8 +1,5 @@
 class GamesController < ApplicationController
 
-  GRID_SIZE = 10
-  DESK_NUMBER = 5
-
   def index
     @games = Game.all
   end
