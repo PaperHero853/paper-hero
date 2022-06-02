@@ -73,14 +73,10 @@ puts "Creating Ended Games..."
 
 def create_ended_game(creator, opponent)
   @game = Game.new
-  if @game.save
-    @grid_owner = Grid.new(game_id: @game.id, user_id: creator.id, creator: true, playing: false)
-    @grid_opponent = Grid.new(game_id: @game.id, user_id: opponent.id, playing: false, win: true)
-    if @grid_owner.save && @grid_opponent.save
-      grid_creation(@grid_owner)
-      grid_creation(@grid_opponent)
-    end
-  end
+  @grid_owner = Grid.new(game_id: @game.id, user_id: creator.id, creator: true, playing: false)
+  @grid_opponent = Grid.new(game_id: @game.id, user_id: opponent.id, playing: false, win: true)
+  grid_creation(@grid_owner)
+  grid_creation(@grid_opponent)
 end
 
 ended_game1 = create_ended_game(user5, user3)
