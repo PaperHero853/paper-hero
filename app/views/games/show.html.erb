@@ -1,13 +1,13 @@
 <%= render 'shared/navbar' %>
 <div class="container">
   <%= link_to "Quit game", quit_game_path(@game), method: :patch, class: "btn btn-gradient" %>
-  <div style="display:flex;flex-direction:row;justify-content:space-around;">
-    <div class="grid user-grid">
+  <div class="game-platform">
+    <div class="game-grid user-grid">
       <h2><%= @grid_current_user.user.username %></h2>
       <p><%= @grid_current_user.playing ? "..." : "Wait your turn!" %></p>
       <%= render 'grids/grid', cells: @cells_current_user, grid: @grid_current_user %>
     </div>
-    <div class="grid opponent-grid">
+    <div class="game-grid opponent-grid">
       <h2><%= @grid_opponent.user.username %></h2>
       <p><%= @grid_opponent.playing ? "...." : "Please play in this grid!" %></p>
       <%= render 'grids/grid', cells: @cells_opponent, grid: @grid_opponent %>
