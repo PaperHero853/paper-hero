@@ -1,81 +1,16 @@
 <%= render 'shared/navbar' %>
-
 <div class="container">
   <%= link_to "Quit game", quit_game_path(@game), method: :patch, class: "btn btn-gradient" %>
-  <div style="display:flex;flex-direction:row;justify-content:space-around;">
-    <div class="grid user-grid">
+  <div class="game-platform">
+    <div class="game-grid user-grid">
       <h2><%= @grid_current_user.user.username %></h2>
-      <p><%= @grid_current_user.playing ? "Please play!" : "Waits your turn!" %></p>
-      <table class="user-table" style="margin:20px;">
-        <% @cells_current_user.each do |cell|%>
-          <% if cell.position.modulo(@grid_size) == 1 %>
-            <tr>
-          <% end %>
-          <% if cell.visible %>
-            <% if cell.hit %>
-              <td class="hit">
-                <div class="cell-link"></div>
-              </td>
-            <% else %>
-              <td class="missed">
-                <div class="cell-link"></div>
-              </td>
-            <% end %>
-          <% else %>
-            <% if cell.full %>
-              <td class="full">
-                <div class="cell-link"></div>
-              </td>
-            <% else %>
-              <td class="not-tested">
-                <div class="cell-link"></div>
-              </td>
-            <% end %>
-          <% end %>
-          <% if cell.position.modulo(@grid_size) == 0 %>
-            </tr>
-          <% end %>
-        <% end %>
-      </table>
+      <p><%= @grid_current_user.playing ? "..." : "Wait your turn!" %></p>
+      <%= render 'grids/grid', cells: @cells_current_user, grid: @grid_current_user %>
     </div>
-
-
-    <div class="grid opponent-grid">
+    <div class="game-grid opponent-grid">
       <h2><%= @grid_opponent.user.username %></h2>
-      <p><%= @grid_opponent.playing ? "Will play soon!" : "Waits its turn!" %></p>
-      <table class="opponent-table" style="margin:20px;">
-        <% @cells_opponent.each do |cell| %>
-          <% if cell.position.modulo(@grid_size) == 1 %>
-            <tr>
-          <% end %>
-          <% if cell.visible %>
-            <% if cell.hit %>
-              <td class="hit">
-                <div class="cell-link"></div>
-              </td>
-            <% else %>
-              <td class="missed">
-                <div class="cell-link"></div>
-              </td>
-            <% end %>
-          <% else %>
-            <% if @grid_current_user.playing %>
-              <td class="not-tested">
-                <%= link_to cell_path(cell.id) do %>
-                  <div class="cell-link"></div>
-                <% end %>
-              </td>
-            <% else %>
-              <td class="not-tested">
-                <div class="cell-link"></div>
-              </td>
-            <% end %>
-          <% end %>
-          <% if cell.position.modulo(@grid_size) == 0 %>
-            </tr>
-          <% end %>
-        <% end %>
-      </table>
+      <p><%= @grid_opponent.playing ? "...." : "Please play in this grid!" %></p>
+      <%= render 'grids/grid', cells: @cells_opponent, grid: @grid_opponent %>
     </div>
   </div>
 </div>
