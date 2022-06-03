@@ -1,16 +1,29 @@
 <%= render 'shared/navbar' %>
 
-<div class="container">
-  <div>
-    <h1>Hi <%= current_user.username %></h1>
-    <h1>Let's play!</h1>
+<div class="d-flex justify-content-around">
+  <div class="user-show-left">
+    <div>
+      <h1>Hi <%= current_user.username %></h1>
+      <h1>Let's play!</h1>
+    </div>
+    <div>
+      <%= link_to "Create game", new_game_path(@game), class: "btn btn-gradient" %>
+      <%= link_to "Join game", games_path(@game), class: "btn btn-gradient" %>
+    </div>
   </div>
-  <div>
-    <%= link_to "Create a new game", new_game_path(@game), class: "btn btn-gradient" %>
-    <%= link_to "Join existing game", games_path(@game), class: "btn btn-gradient" %>
-</div>
-<div>
-  <div>
-    <%# insert Player historic here %>
+  <div class="user-show-right mt-5">
+    <h1>Games history:</h1>
+    <hr>
+    <div>
+      <% @my_ended_games.each do |game| %>
+        <div class="card-history">
+          <%= image_tag game.my_grid(current_user).win? ? "trophy.png" : "disappointed-face.png" %>
+          <div class="card-history-infos">
+            <h2> VS <%= "#{game.opponent_name(current_user)}" %> </h2>
+            <p> <%= game.updated_at %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

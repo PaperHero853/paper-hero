@@ -74,8 +74,8 @@ puts "Creating Ended Games..."
 def create_ended_game(creator, opponent)
   @game = Game.new
   @game.save!
-  @grid_owner = Grid.new(game_id: @game.id, user_id: creator.id, creator: true, playing: false)
-  @grid_opponent = Grid.new(game_id: @game.id, user_id: opponent.id, playing: false, win: true)
+  @grid_owner = Grid.create(game_id: @game.id, user_id: creator.id, creator: true, playing: false)
+  @grid_opponent = Grid.create(game_id: @game.id, user_id: opponent.id, playing: false, win: true)
   grid_creation(@grid_owner)
   grid_creation(@grid_opponent)
 end
