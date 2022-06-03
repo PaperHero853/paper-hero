@@ -1,28 +1,46 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to "/users/#{current_user.id}", class: "navbar-brand" do %>
-      <%= image_tag "PaperHero_logo.png" %>
-    <% end %>
+<% if user_signed_in? %>
+  <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+    <div class="container-fluid">
+      <%= link_to  "/users/#{current_user.id}", class: "navbar-brand" do %>
+        <%= image_tag "PaperHero_logo.png" %>
+      <% end %>
 
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item active", id="user-name">
-          <%= "#{current_user.username}" %>
-        </li>
-        <li class="nav-item dropdown">
-          <% if current_user.photo.attached? %>
-            <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <% else %>
-            <%= image_tag "leader.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <% end %>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <%= link_to "Action", "#", class: "dropdown-item" %>
-            <%= link_to "Another action", "#", class: "dropdown-item" %>
-            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-          </div>
-        </li>
-      </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item row align-items-center active me-3", id="user-name">
+            <%= "#{current_user.username}" %>
+          </li>
+          <li class="nav-item dropdown">
+            <% if current_user.photo.attached? %>
+              <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+              <%= image_tag "leader.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% end %>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <%= link_to "Action", "#", class: "dropdown-item" %>
+              <%= link_to "Another action", "#", class: "dropdown-item" %>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
+  <% else %>
+    <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+    <div class="container-fluid">
+      <%= link_to  "pages#home", class: "navbar-brand" do %>
+        <%= image_tag "PaperHero_logo.png" %>
+      <% end %>
+
+      <div>
+        <ul class="">
+          <li>
+            <%= link_to "Login", new_user_session_path, class: "login-font" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <% end %>
