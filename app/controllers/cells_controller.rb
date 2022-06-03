@@ -10,6 +10,8 @@ class CellsController < ApplicationController
     user_grid = Grid.find_by(game_id: cell.grid.game.id, playing: true)
     # Important, don't switch the lines below and above!!!
     if opponent_grid.hit_count >= DESK_NUMBER
+      opponent_grid.update(playing: false)
+      user_grid.update(playing: false)
       opponent_grid.game.update(ongoing: false)
       user_grid.update(win: true)
     else
