@@ -7,7 +7,7 @@ class CellsController < ApplicationController
     cell.save
     opponent_grid = Grid.find(cell.grid_id)
     opponent_grid.hit_count += 1 if cell.full
-    user_grid = Grid.find_by(game_id: cell.grid.game.id, playing: true)
+    user_grid = Grid.find_by(game: cell.grid.game, playing: true)
     # Important, don't switch the lines below and above!!!
     if opponent_grid.hit_count >= DESK_NUMBER
       opponent_grid.update(playing: false)
