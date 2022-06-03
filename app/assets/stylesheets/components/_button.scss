@@ -39,3 +39,17 @@
   background: linear-gradient(#147EFF, #0F67DA);
   color: white;
 }
+
+.btn-create {
+  color: white;
+  font-size: large;
+  vertical-align: middle;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: bold;
+  background: linear-gradient(#167FFB, #0F60C4);
+  transition: background 0.3s ease;
+  border: 1px solid #0F60C4;
+  width: 240px;
+  height: 120px;
+}

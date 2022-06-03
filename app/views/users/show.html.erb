@@ -1,17 +1,19 @@
 <%= render 'shared/navbar' %>
 
 <div class="d-flex justify-content-around">
-  <div class="user-show-left">
+  <div class="user-show">
     <div>
-      <h1>Hi <%= current_user.username %></h1>
+      <h2>Hi <%= current_user.username %></h2>
+      <br>
       <h1>Let's play!</h1>
+      <br>
     </div>
     <div>
-      <%= link_to "Create game", new_game_path(@game), class: "btn btn-gradient" %>
-      <%= link_to "Join game", games_path(@game), class: "btn btn-gradient" %>
+      <%= link_to "Create game", new_game_path(@game), class: "btn btn-create" %>
+      <%= link_to "Join game", games_path(@game), class: "btn btn-create" %>
     </div>
   </div>
-  <div class="user-show-right mt-5">
+  <div class="user-show">
     <h1>Games history:</h1>
     <hr>
     <div>
