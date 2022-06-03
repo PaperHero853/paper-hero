@@ -7,6 +7,7 @@ class CellsController < ApplicationController
     cell.save
     opponent_grid = Grid.find(cell.grid_id)
     opponent_grid.hit_count += 1 if cell.full
+    update_desk(cell)
     puts("#########################################################################")
     puts cell.inspect
     puts("#########################################################################")
@@ -28,5 +29,17 @@ class CellsController < ApplicationController
     # raise
     user_grid.update(playing: false)
     redirect_to game_path(cell.grid.game.id)
+  end
+
+  def update_desk(cell)
+    opponent_grid = Grid.find(cell.grid_id)
+    desks = Desk.where(grid: opponent_grid)
+    cell_coordinate = coord(cell.position)
+    desks.each do |desk|
+      area = area(coord(desk.pos_origin), [desk.size_x, desk.size_y])
+      desk.hit_count += 1 if (area & [cell_coordinate]).size.positive?
+      desk.hit = true if desk.hit_count == (desk.size_x * desk.size_y)
+      desk.save
+    end
   end
 end
