@@ -15,6 +15,8 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(ongoing: true)
+    @users = User.all
+
     if @game.save
       @grid_owner = Grid.new(game: @game, user: current_user, creator: true, playing: false)
       @grid_opponent = Grid.new(game: @game, playing: true)
