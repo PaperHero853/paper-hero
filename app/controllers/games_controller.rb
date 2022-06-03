@@ -67,7 +67,7 @@ class GamesController < ApplicationController
   def grid_creation(grid)
     int = 1
     (GRID_SIZE**2).times do
-      cell = Cell.new(grid_id: grid.id)
+      cell = Cell.new(grid: grid)
       cell.position = int
       if cell.save
         int += 1
