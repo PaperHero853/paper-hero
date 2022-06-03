@@ -22,7 +22,7 @@
           <div>
             <%= f.submit "Create your game", class: "btn btn-gradient" %>
           </div>
-        <div class="" data-controller="radio-button"> 
+        <div class="" data-controller="radio-button">
           <%= f.association :users,
               as: :radio_buttons,
               label: "",
@@ -38,7 +38,7 @@
                 ]
               },
               item_label_class: "mb-0",
-              input_html: { 
+              input_html: {
                 class: "sr-only",
                 data: {
                   action: "radio-button#toggleCheckedClass",
@@ -47,7 +47,8 @@
                 },
               wrapper_class: "horizontal-scroll py-0",
               item_wrapper_class: "col-7 col-md-5 col-lg-3 custom--media__miniature text-center" %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
