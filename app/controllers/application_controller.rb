@@ -17,4 +17,27 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     user_path(resource)
   end
+
+  def coord(position)
+    position -= 1
+    coord = [position.divmod(GRID_SIZE).first, position.divmod(GRID_SIZE).last]
+  end
+
+  def pos(coordinates)
+    coordinates.last + (GRID_SIZE * coordinates.first) + 1
+  end
+
+  def area(origin, desk)
+    area = []
+    y = 0
+    desk.last.times do
+      x = 0
+      desk.first.times do
+        area << [origin.first + y, origin.last + x]
+        x += 1
+      end
+      y += 1
+    end
+    area
+  end
 end
