@@ -4,6 +4,14 @@ class GamesController < ApplicationController
   end
   def new
     @game = Game.new
+   
+    if params[:search]
+      @search_term = params[:search][:username]
+      @users = User.where("username ILIKE ?", "%#{@search_term}%")
+    else
+      @users = User.all
+    end
+
   end
 
   def create
