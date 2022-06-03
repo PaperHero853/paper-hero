@@ -1,17 +1,17 @@
 <%= render 'shared/navbar' %>
 
 <div class="container">
-  <p>Choose your game:</p>
+  <h2>Choose your game:</h2>
   <div class="container-row">
     <div class="cards">
       <% current_user.games.where(ongoing: true).each do |game| %>
         <div class="card-product">
-          <div class="card-product-infos">
+          <div class="card-product-infos d-flex justify-content-between">
             <% grids = Grid.where(game_id: game.id) %>
             <% opponent_grid = grids.first.user_id == current_user.id ? grids.last : grids.first %>
             <% opponent_name = User.find(opponent_grid.user_id).username %>
             <h3>Game vs<%= "#{opponent_name}" %></h3>
-            <h3><%= link_to "Join", game_path(game), class: "btn btn-flat" %></h3>
+            <h3 class="card-link"><%= link_to "Join", game_path(game), class: "btn btn-flat" %></h3>
           </div>
         </div>
       <% end %>

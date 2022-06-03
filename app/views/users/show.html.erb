@@ -18,7 +18,7 @@
     <hr>
     <div>
       <% @my_ended_games.each do |game| %>
-        <div class="card-history">
+        <div class="card-history mb-2">
           <%= image_tag game.my_grid(current_user).win? ? "trophy.png" : "disappointed-face.png" %>
           <div class="card-history-infos">
             <h2> VS <%= "#{game.opponent_name(current_user)}" %> </h2>
