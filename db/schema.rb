@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_02_090939) do
+ActiveRecord::Schema.define(version: 2022_06_03_100427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 2022_06_02_090939) do
     t.index ["grid_id"], name: "index_cells_on_grid_id"
   end
 
+  create_table "desks", force: :cascade do |t|
+    t.integer "size_x", default: 1
+    t.integer "size_y", default: 1
+    t.integer "hit_count", default: 0
+    t.boolean "hit", default: false
+    t.bigint "grid_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "pos_origin"
+    t.index ["grid_id"], name: "index_desks_on_grid_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.boolean "ongoing", default: false
     t.datetime "created_at", precision: 6, null: false
@@ -89,6 +101,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_090939) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cells", "grids"
+  add_foreign_key "desks", "grids"
   add_foreign_key "grids", "games"
   add_foreign_key "grids", "users"
 end
