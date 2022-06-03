@@ -122,29 +122,6 @@ class GamesController < ApplicationController
     test_a || test_x || test_y
   end
 
-  def coord(position)
-    position -= 1
-    coord = [position.divmod(GRID_SIZE).first, position.divmod(GRID_SIZE).last]
-  end
-
-  def pos(coordinates)
-    coordinates.last + (GRID_SIZE * coordinates.first) + 1
-  end
-
-  def area(origin, desk)
-    area = []
-    y = 0
-    desk.last.times do
-      x = 0
-      desk.first.times do
-        area << [origin.first + y, origin.last + x]
-        x += 1
-      end
-      y += 1
-    end
-    area
-  end
-
   def full_locations(cells)
     output = []
     cells.each do |cell|
