@@ -1,0 +1,22 @@
+#img {
+  animation:4s rotate infinite linear;
+  /* animation-direction: alternate; */
+}
+
+@keyframes rotate{
+
+  /* 100%{ transform:rotate(360deg) } */
+
+  from {
+    width: 10%;
+  }
+
+  50% {
+    width: 50%;
+  }
+
+  to {
+    transform:translateX(800px) translateY(300px) rotate(720deg);
+    width: 10%;
+  }
+}

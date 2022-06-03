@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-
   def index
     @games = Game.all
   end
@@ -66,15 +65,84 @@ class GamesController < ApplicationController
   private
 
   def grid_creation(grid)
-    desk_positions = (1..GRID_SIZE**2).to_a.sample(DESK_NUMBER)
     int = 1
     (GRID_SIZE**2).times do
       cell = Cell.new(grid_id: grid.id)
       cell.position = int
-      cell.full = true if desk_positions.include?(cell.position)
-      cell.save
-      int += 1
+      if cell.save
+        int += 1
+      else
+        flash[:notice] = "Sorry, something went wrong during the cell save!"
+        render :new
+      end
     end
+    desks_positioning(grid)
+  end
+
+  def desks_positioning(grid)
+    output = []
+    DESKS.each do |desk|
+      positions = (1..GRID_SIZE**2).to_a
+      desk = desk.sample(2)
+      cells = Cell.where(grid_id: grid.id, full: true)
+      if cells.empty?
+        full_locations = []
+      else
+        full_locations = cells.map { |ele| coord(ele.position) }
+      end
+      origin = coord(positions.sample)
+      while bad_positioning_tests(desk, origin, full_locations)
+        if positions.empty?
+          flash[:notice] = "Sorry, no possibility to place the desks!"
+          raise
+        else
+          positions.delete(pos(origin))
+          origin = coord(positions.sample)
+        end
+      end
+      desk_positioned = Desk.new(grid_id: grid.id, size_x: desk.first, size_y: desk.last, pos_origin: pos(origin))
+      if desk_positioned.save
+        area(origin, desk).each do |coord|
+          position = pos(coord)
+          cell = Cell.where(grid_id: grid.id, position: position).first
+          cell.update(full: true)
+        end
+      else
+        flash[:notice] = "Sorry, something went wrong during the desk #{desk.first}x#{desk.last} positioning!"
+        render :new
+      end
+      output << { origin: origin, area: area(origin, desk), full: full_locations }
+    end
+  end
+
+  def bad_positioning_tests(desk, origin, fulls)
+    test_a = (area(origin, desk) & fulls).size.positive?
+    test_y = origin.first + desk.last > GRID_SIZE
+    test_x = origin.last + desk.first > GRID_SIZE
+    test_a || test_x || test_y
+  end
+
+  def coord(position)
+    position -= 1
+    coord = [position.divmod(GRID_SIZE).first, position.divmod(GRID_SIZE).last]
+  end
+
+  def pos(coordinates)
+    coordinates.last + (GRID_SIZE * coordinates.first) + 1
+  end
+
+  def area(origin, desk)
+    area = []
+    y = 0
+    desk.last.times do
+      x = 0
+      desk.first.times do
+        area << [origin.first + y, origin.last + x]
+        x += 1
+      end
+      y += 1
+    end
+    area
   end
 
   def full_locations(cells)
@@ -83,9 +151,5 @@ class GamesController < ApplicationController
       output << cell.position if cell.full
     end
     output
-  end
-
-  def game_params
-    # params.require(:game).permit(:user_ids, :game_id)
   end
 end
