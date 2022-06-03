@@ -14,9 +14,13 @@ class CellsController < ApplicationController
       user_grid.update(playing: false)
       opponent_grid.game.update(ongoing: false)
       user_grid.update(win: true)
+      opponent_grid.update(playing: false)
+      user_grid.update(playing: false)
+      # redirect_to game_path(cell.grid.game.id)
     else
       opponent_grid.update(playing: true)
     end
+    # raise
     user_grid.update(playing: false)
     redirect_to game_path(cell.grid.game.id)
   end
