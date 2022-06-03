@@ -39,3 +39,26 @@
   background: linear-gradient(#147EFF, #0F67DA);
   color: white;
 }
+
+.btn-create {
+  color: white;
+  font-size: 24px;
+  padding-top: 45px;
+  border-radius: 4px;
+  font-weight: bold;
+  background: linear-gradient(#167FFB, #0F60C4);
+  transition: background 0.3s ease;
+  border: 1px solid #0F60C4;
+  width: 240px;
+  height: 120px;
+}
+
+.btn-quit {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-weight: bold;
+  background: linear-gradient(#fb5716, #c46d0f);
+  transition: background 0.3s ease;
+  border: 1px solid #c46d0f;
+}

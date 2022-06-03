@@ -3,7 +3,7 @@
 <div class="container">
   <h2> Create a new game</h2>
   <hr>
-    <p>Choose your opponent</p>
+  <p>Choose your opponent</p>
   <div class="custom-form">
     <div class="col-4">
       <%= simple_form_for :search, url: new_game_path, method: :get do |f| %>
@@ -18,8 +18,8 @@
     </div>
     <div class="">
       <div class="col-4">
-        <%= simple_form_for(@game) do |f| %> 
-          <div>  
+        <%= simple_form_for(@game) do |f| %>
+          <div>
             <%= f.submit "Create your game", class: "btn btn-gradient" %>
           </div>
         <div class="" data-controller="radio-button"> 
@@ -52,6 +52,3 @@
     </div>
   </div>
 </div>
-
-
-

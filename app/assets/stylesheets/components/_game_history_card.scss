@@ -1,4 +1,4 @@
-.card-product {
+.card-history {
   overflow: hidden;
   height: 120px;
   background: white;
@@ -7,19 +7,21 @@
   align-items: center;
 }
 
-.card-product img {
-  height: 100%;
-  width: 120px;
+.card-history img {
+  height: 80px;
+  width: 80px;
   object-fit: cover;
+  border-radius: 50%;
+  padding: 8px;
 }
 
-.card-product h2 {
+.card-history h2 {
   font-size: 16px;
   font-weight: bold;
   margin: 0;
 }
 
-.card-product p {
+.card-history p {
   font-size: 12px;
   line-height: 1.4;
   opacity: .7;
@@ -27,11 +29,6 @@
   margin-top: 8px;
 }
 
-.card-product .card-product-infos {
+.card-history .card-history-infos {
   padding: 16px;
-}
-
-
-.card-link {
-  margin-left: 120px;
 }
