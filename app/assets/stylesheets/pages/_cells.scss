@@ -9,17 +9,21 @@ td {
 }
 
 .not-tested {
-  background-color: cyan;
+  background-color: #a8dadc;
 }
 
 .full {
-  background-color: black;
+  background-color: #274c77;
 }
 
 .missed {
-  background-color: red;
+  background-size: cover;
+  background-image: linear-gradient(rgba(117, 43, 43, 0.5), rgba(236, 10, 10, 0.3)),
+  url("Emoji-red.jpg");
 }
 
 .hit {
-  background-color: green;
+  background-size: cover;
+  background-image: linear-gradient(rgba(4, 55, 18, 0.5), rgba(100, 233, 118, 0.3)),
+  url("Emoji-green.jpg");
 }
