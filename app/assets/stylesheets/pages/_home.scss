@@ -14,13 +14,11 @@
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   font-size: 60px;
   font-weight: bold;
-  font-family: 'IBM Plex Mono', monospace;
   padding: 8px;
 }
 
 .banner p {
   font-size: 32px;
-  font-family: 'Roboto Mono', monospace;
   color: white;
   opacity: .9;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
@@ -61,6 +59,10 @@
 .btn-cta:active {
   box-shadow: 0 0 0 black;
   transform: translate(0, 0);
+}
+
+#btn-small {
+  font-size: 24px;
 }
 
 .footer {

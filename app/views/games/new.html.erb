@@ -1,9 +1,9 @@
 <%= render 'shared/navbar' %>
 
 <div class="container">
-  <h2> Create a new game</h2>
+  <h1 class="mt-3"> Create a new game:</h1>
   <hr>
-  <p>Choose your opponent</p>
+  <%# <p>Choose your opponent</p> %>
   <div class="custom-form">
     <div class="col-4">
       <%= simple_form_for :search, url: new_game_path, method: :get do |f| %>
@@ -11,7 +11,7 @@
           <%= f.input :username, input_html: { value: @search_term },
             label: false,
             classe: "form-control",
-            placeholder: "Type a username" %>
+            placeholder: "Find your opponent" %>
           <%= f.submit "Search", class: "btn btn-flat" %>
         </div>
       <% end %>
