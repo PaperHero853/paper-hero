@@ -2,8 +2,16 @@
   display:flex;
   flex-direction:row;
   justify-content:space-around;
+  margin-top: 15px;
+  .game-table {
+    border: 3px solid black;
+  }
 }
 
-.game-table {
-  border: 3px solid black;
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 100px) and (max-width: 575px) {
+  .game-platform {
+    flex-direction:column;
+    justify-content:space-around;
+  }
 }

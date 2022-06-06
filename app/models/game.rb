@@ -9,4 +9,31 @@ class Game < ApplicationRecord
   def my_grid(user)
     grids.find_by_user_id(user.id)
   end
+
+  def desks_array
+    output = []
+    case self.desks
+    when 2
+      output = [[3, 2], [2, 1]]
+    when 3
+      output = [[3, 2], [2, 2], [2, 1]]
+    when 4
+      output = [[3, 2], [2, 2], [2, 2], [2, 1]]
+    when 5
+      output = [[3, 2], [2, 2], [2, 2], [2, 1], [2, 1]]
+    when 6
+      output = [[3, 3], [3, 2], [2, 2], [2, 2], [2, 1], [2, 1]]
+    else
+      output = [1, 1]
+    end
+    output
+  end
+
+  def cells_number
+    sum = 0
+    desks_array.each do |desk|
+      sum += (desk.first * desk.last)
+    end
+    sum
+  end
 end
