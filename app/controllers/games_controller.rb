@@ -14,13 +14,12 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(ongoing: true)
+    @game = Game.new(ongoing: true, grid_size: params[:game][:grid_size], desks: params[:game][:desks])
     @users = User.all
-
     if @game.save
       @grid_owner = Grid.new(game: @game, user: current_user, creator: true, playing: false)
       @grid_opponent = Grid.new(game: @game, playing: true)
-      @grid_opponent.user_id = params[:game][:user_ids].first
+      @grid_opponent.user_id = params[:game][:user_ids]
       if @grid_owner.save && @grid_opponent.save
         grid_creation(@grid_owner)
         grid_creation(@grid_opponent)
