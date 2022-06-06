@@ -39,6 +39,7 @@ puts "-------------------------"
 puts "Creating Ongoing Games..."
 
 def create_ongoing_game(creator, opponent)
+  # Chatroom.create!(name: "Test", game_id: @game.id)
   @game = Game.new(ongoing: true)
   @game.save!
   @grid_owner = Grid.new(game_id: @game.id, user_id: creator.id, creator: true, playing: false)

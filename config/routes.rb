@@ -9,4 +9,8 @@ Rails.application.routes.draw do
     end
   end
   get 'cells/:id', to: 'cells#play', as: 'cell'
+
+  resources :chatrooms, only: :show do
+    resources :messages, only: :create
+  end
 end
