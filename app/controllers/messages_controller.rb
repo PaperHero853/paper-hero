@@ -5,16 +5,16 @@ class MessagesController < ApplicationController
     @message.chatroom = @chatroom
     @message.user = current_user
     @game = @chatroom.game
-    if @message.save
-      redirect_to game_path(@game, anchor: "message-#{@message.id}")
-    end
     # if @message.save
-    #   ChatroomChannel.broadcast_to(
-    #     @chatroom,
-    #     render_to_string(partial: "message", locals: {message: @message})
-    #   )
-    #   head :ok
+    #   redirect_to game_path(@game, anchor: "message-#{@message.id}")
     # end
+    if @message.save
+      ChatroomChannel.broadcast_to(
+        @chatroom,
+        render_to_string(partial: "message", locals: {message: @message})
+      )
+      head :ok
+    end
   end
 
   private
