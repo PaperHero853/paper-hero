@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_100856) do
+ActiveRecord::Schema.define(version: 2022_06_06_083756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 2022_06_06_100856) do
     t.boolean "ongoing", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "grid_size", default: 10
+    t.integer "desks", default: 4
   end
 
   create_table "grids", force: :cascade do |t|
