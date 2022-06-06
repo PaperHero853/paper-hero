@@ -36,6 +36,10 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    
+    @chatroom = @game.chatroom
+    @message = Message.new
+    
     grids = Grid.where(game: @game)
     if grids.first.user_id == current_user.id
       @grid_current_user = grids.first
