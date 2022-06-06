@@ -1,31 +1,31 @@
 <%= render 'shared/navbar' %>
 
 <div class="container">
-  <h2> Create a new game</h2>
+  <h1 class="mt-3"> Create a new game:</h1>
   <hr>
-  <p>Choose your opponent</p>
   <div class="custom-form">
-    <div class="col-4">
-      <%= simple_form_for :search, url: new_game_path, method: :get do |f| %>
-        <div class="search-form-control form-group">
-          <%= f.input :username, input_html: { value: @search_term },
-            label: false,
-            classe: "form-control",
-            placeholder: "Type a username" %>
-          <%= f.submit "Search", class: "btn btn-flat" %>
-        </div>
-      <% end %>
-    </div>
-    <div class="">
-      <div class="col-4">
-        <%= simple_form_for(@game) do |f| %>
-          <div>
-            <%= f.submit "Create your game", class: "btn btn-gradient" %>
+    <div class="wrapper">
+      <div class="col-12 users-search">
+        <%= simple_form_for :search, url: new_game_path, method: :get do |f| %>
+          <div class="search-form-control form-group">
+            <%= f.input :username, input_html: { value: @search_term },
+              label: false,
+              classe: "form-control",
+              placeholder: "Find your opponent" %>
+            <%= f.submit "Search", class: "btn btn-cta", id:"btn-small" %>
           </div>
-        <div class="" data-controller="radio-button">
-          <%= f.association :users,
+        <% end %>
+      </div>
+      <%= simple_form_for(@game) do |f| %>
+        <%= f.submit "Create game", class: "btn btn-cta", id:"btn-small" %>
+        <div class="game-inline-block">
+          <div class="game-info">
+            <%= f.input :grid_size, label: "Grid size:" %>
+            <%= f.input :desks, label: "Number of desks:", as: :radio_buttons, collection: 2..6 %>
+          </div>
+          <div class="users-list" data-controller="radio-button">
+            <%= f.association :users,
               as: :radio_buttons,
-              label: "",
               collection: @users.map { |user|
                 [raw(
                   "<div class='notification'>
@@ -44,12 +44,12 @@
                   action: "radio-button#toggleCheckedClass",
                   radio_button_target: "radioBtn"
                 }
-                },
+              },
               wrapper_class: "horizontal-scroll py-0",
               item_wrapper_class: "col-7 col-md-5 col-lg-3 custom--media__miniature text-center" %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

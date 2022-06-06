@@ -14,9 +14,8 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(ongoing: true)
+    @game = Game.new(ongoing: true, grid_size: params[:game][:grid_size], desks: params[:game][:desks])
     @users = User.all
-
     if @game.save
       @grid_owner = Grid.new(game: @game, user: current_user, creator: true, playing: false)
       @grid_opponent = Grid.new(game: @game, playing: true)
@@ -37,6 +36,10 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    
+    @chatroom = @game.chatroom
+    @message = Message.new
+    
     grids = Grid.where(game: @game)
     if grids.first.user_id == current_user.id
       @grid_current_user = grids.first
@@ -49,7 +52,6 @@ class GamesController < ApplicationController
     @cells_opponent = Cell.where(grid: @grid_opponent).order(position: :asc)
     @current_user_full = full_locations(@cells_current_user)
     @opponent_full = full_locations(@cells_opponent)
-    @grid_size = GRID_SIZE
   end
 
   def quit
@@ -66,7 +68,7 @@ class GamesController < ApplicationController
 
   def grid_creation(grid)
     int = 1
-    (GRID_SIZE**2).times do
+    (@game.grid_size**2).times do
       cell = Cell.new(grid: grid)
       cell.position = int
       if cell.save
@@ -81,8 +83,8 @@ class GamesController < ApplicationController
 
   def desks_positioning(grid)
     output = []
-    DESKS.each do |desk|
-      positions = (1..GRID_SIZE**2).to_a
+    @game.desks_array.each do |desk|
+      positions = (1..@game.grid_size**2).to_a
       desk = desk.sample(2)
       cells = Cell.where(grid: grid, full: true)
       if cells.empty?
@@ -117,8 +119,8 @@ class GamesController < ApplicationController
 
   def bad_positioning_tests(desk, origin, fulls)
     test_a = (area(origin, desk) & fulls).size.positive?
-    test_y = origin.first + desk.last > GRID_SIZE
-    test_x = origin.last + desk.first > GRID_SIZE
+    test_y = origin.first + desk.last > @game.grid_size
+    test_x = origin.last + desk.first > @game.grid_size
     test_a || test_x || test_y
   end
 

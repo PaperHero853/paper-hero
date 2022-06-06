@@ -1,15 +1,13 @@
 .custom-form {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  width: 80%;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 16px;
-  margin-top: 15px;
-}
+// .cards {
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1fr;
+//   grid-gap: 16px;
+//   margin-top: 15px;
+// }
 
 .category-wrapper {
   display: flex;

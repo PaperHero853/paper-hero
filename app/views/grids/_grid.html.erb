@@ -1,6 +1,6 @@
-<table class="game-table" style="margin:20px;">
+<table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %> ">
   <% cells.each do |cell| %>
-    <% if cell.position.modulo(@grid_size) == 1 %>
+    <% if cell.position.modulo(@game.grid_size) == 1 %>
       <tr>
     <% end %>
     <% if cell.visible %>
@@ -36,7 +36,7 @@
         </td>
       <% end %>
     <% end %>
-    <% if cell.position.modulo(@grid_size) == 0 %>
+    <% if cell.position.modulo(@game.grid_size) == 0 %>
       </tr>
     <% end %>
   <% end %>
