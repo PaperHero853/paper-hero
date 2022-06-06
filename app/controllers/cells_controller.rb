@@ -8,11 +8,11 @@ class CellsController < ApplicationController
     opponent_grid = Grid.find(cell.grid_id)
     opponent_grid.hit_count += 1 if cell.full
     update_desk(cell)
-    puts("#########################################################################")
+    puts("################################################################################################################################################################")
     puts cell.inspect
-    puts("#########################################################################")
+    puts("################################################################################################################################################################")
     puts cell.grid.inspect
-    puts("#########################################################################")
+    puts("################################################################################################################################################################")
     user_grid = Grid.find_by(game: cell.grid.game, playing: true)
     # Important, don't switch the lines below and above!!!
     if opponent_grid.hit_count >= DESK_NUMBER
@@ -26,8 +26,18 @@ class CellsController < ApplicationController
     else
       opponent_grid.update(playing: true)
     end
-    # raise
     user_grid.update(playing: false)
+    GameChannel.broadcast_to(
+      cell.grid.game,
+      {
+        left_grid: render_to_string(partial: "partials/grid", locals: {left_grid: opponent_grid, right_grid: user_grid, visible: true}),
+        right_grid: render_to_string(partial: "partials/grid", locals: {left_grid: user_grid, right_grid: opponent_grid, visible: false}),
+        button: render_to_string(partial: "partials/button", locals: {game: user_grid.game}),
+        leftphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: opponent_grid, right_grid: user_grid})
+        # rightphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: user_grid, right_grid: opponent_grid})
+      }
+    )
+    # raise
     redirect_to game_path(cell.grid.game.id)
   end
 
