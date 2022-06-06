@@ -3,3 +3,18 @@
   margin-top: 32px;
   padding: 16px;
 }
+
+.user-show h1 {
+  font-weight: bold;
+  font-size: 60px;
+}
+
+.user-show h2 {
+  font-size: 40px;
+}
+
+.chat-game {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+}

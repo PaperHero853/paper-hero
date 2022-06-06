@@ -3,25 +3,25 @@
 <div class="d-flex justify-content-around">
   <div class="user-show">
     <div>
-      <h2>Hi <%= current_user.username %></h2>
+      <h1 class="text-dark">Hello <%= current_user.username %></h2>
       <br>
-      <h1>Let's play!</h1>
+      <h2 class="text-dark">Let's play!</h1>
       <br>
     </div>
     <div>
-      <%= link_to "Create game", new_game_path(@game), class: "btn btn-create" %>
-      <%= link_to "Join game", games_path(@game), class: "btn btn-create" %>
+      <%= link_to "Create game", new_game_path(@game), class: "btn btn-cta mt-3" %>
+      <%= link_to "Join game", games_path(@game), class: "btn btn-cta mt-3" %>
     </div>
   </div>
   <div class="user-show">
-    <h1>Games history:</h1>
+    <h1 class="text-dark">Games history:</h1>
     <hr>
     <div>
       <% @my_ended_games.each do |game| %>
         <div class="card-history mb-2">
-          <%= image_tag game.my_grid(current_user).win? ? "trophy.png" : "disappointed-face.png" %>
+          <%= image_tag game.my_grid(current_user).win? ? "trophy_new.png" : "disappointed-face.png" %>
           <div class="card-history-infos">
-            <h2> VS <%= "#{game.opponent_name(current_user)}" %> </h2>
+            <h3> VS <%= "#{game.opponent_name(current_user)}" %> </h3>
             <p> <%= game.updated_at %></p>
           </div>
         </div>

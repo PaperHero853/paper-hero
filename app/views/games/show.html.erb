@@ -1,6 +1,8 @@
 <%= render 'shared/navbar' %>
-<div class="container" data-controller="game-subscription" data-game-subscription-game-id-value="<%= @game.id %>">
+<div class="container chat-game" data-controller="game-subscription" data-game-subscription-game-id-value="<%= @game.id %>">
   
+  <%= render 'chatrooms/chatroom' %>
+
   <div class="game-platform">
     <div class="game-grid user-grid">
 
@@ -37,5 +39,5 @@
   <div data-game-subscription-target="button">
     <%= render "partials/button", game: @game %>
   </div>
-  
+
 </div>

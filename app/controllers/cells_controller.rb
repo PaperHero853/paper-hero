@@ -5,6 +5,7 @@ class CellsController < ApplicationController
     cell.hit = true if cell.full
     cell.visible = true
     cell.save
+    @game = cell.grid.game
     opponent_grid = Grid.find(cell.grid_id)
     opponent_grid.hit_count += 1 if cell.full
     update_desk(cell)
@@ -15,7 +16,7 @@ class CellsController < ApplicationController
     puts("################################################################################################################################################################")
     user_grid = Grid.find_by(game: cell.grid.game, playing: true)
     # Important, don't switch the lines below and above!!!
-    if opponent_grid.hit_count >= DESK_NUMBER
+    if opponent_grid.hit_count >= @game.cells_number
       opponent_grid.update(playing: false)
       user_grid.update(playing: false)
       opponent_grid.game.update(ongoing: false)
