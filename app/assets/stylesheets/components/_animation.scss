@@ -8,7 +8,7 @@
   /* 100%{ transform:rotate(360deg) } */
 
   from {
-    width: 10%;
+    width: 0%;
   }
 
   50% {
@@ -17,6 +17,6 @@
 
   to {
     transform:translateX(800px) translateY(300px) rotate(720deg);
-    width: 10%;
+    width: 0%;
   }
 }
