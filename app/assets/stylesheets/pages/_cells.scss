@@ -1,10 +1,10 @@
 td {
   border:1px solid;
   .cell-link {
-    // height: (300 / GRID_SIZE)px;
-    // width: (300 / GRID_SIZE)px;
-    height: 30px;
-    width: 30px;
+    // height: 30px;
+    // width: 30px;
+    height: calc(25vw / var(--grid-size));
+    width: calc(25vw / var(--grid-size));
   }
 }
 
