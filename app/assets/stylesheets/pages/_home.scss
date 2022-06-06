@@ -5,41 +5,62 @@
   padding: 150px 0;
   background-image: url("banner.jpg");
   height: 90vh;
+  padding: 3em;
 }
 
 .banner h1 {
   margin: 0;
   color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  font-size: 40px;
+  font-size: 60px;
   font-weight: bold;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 8px;
 }
 
 .banner p {
-  font-size: 24px;
+  font-size: 32px;
+  font-family: 'Roboto Mono', monospace;
   color: white;
   opacity: .9;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  max-width: 50%;
 }
 
 .b-content {
   max-width: 50vw;
   padding-left: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
 }
 
-.btn-gradient {
+.btn-cta {
   color: white;
   padding: 8px 24px;
   border-radius: 4px;
+  font-size: 40px;
   font-weight: bold;
-  background: linear-gradient(#167FFB, #0F60C4);
+  font-family: 'IBM Plex Mono', monospace;
+  background: linear-gradient(#15151C, rgb(30, 30, 40));
   transition: background 0.3s ease;
-  border: 1px solid #0F60C4;
+  border: 1px solid rgb(30, 30, 40);
 }
 
-.btn-gradient:hover {
-  background: linear-gradient(#147EFF, #0F67DA);
-  color: white;
+.btn-cta:last-child {
+  margin: 0;
+}
+
+.btn-cta:hover {
+  background: linear-gradient(#ffffff, #eff2f6);
+  color: rgb(0, 0, 0);
+  box-shadow: 0.4rem 0.4rem 0 black;
+  transform: translate(-0.4rem, -0.4rem);
+}
+
+.btn-cta:active {
+  box-shadow: 0 0 0 black;
+  transform: translate(0, 0);
 }
 
 .footer {
