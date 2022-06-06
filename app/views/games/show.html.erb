@@ -1,7 +1,7 @@
 <%= render 'shared/navbar' %>
 <div class="container">
   <% if @game.ongoing %>
-    <%= link_to "Quit game", quit_game_path(@game), method: :patch, class: "btn btn-quit" %>
+    <%= link_to "Quit game", quit_game_path(@game), method: :patch, class: "btn btn-cta", id:"btn-small" %>
   <% else %>
     <%= link_to "Play again!", user_path, class: "btn btn-gradient" %>
   <% end %>

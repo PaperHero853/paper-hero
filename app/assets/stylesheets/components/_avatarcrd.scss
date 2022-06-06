@@ -11,7 +11,7 @@
 
 .notification {
   flex-grow: 1;
-  padding: 0 24px;
+  padding: 10px 24px;
 }
 
 .avatar-large > img {
@@ -21,6 +21,7 @@
 .notification p {
   margin: 0;
   line-height: 1.4;
+  padding-left: 16px;
 }
 
 .notification small {
@@ -46,4 +47,3 @@
 .notification .notification-actions a:hover {
   color: #555555;
 }
-

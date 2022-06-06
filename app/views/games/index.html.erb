@@ -2,7 +2,6 @@
 
 <div class="container">
   <h1 class="text-dark mt-4">Join a game:</h1>
-
   <div class="cards">
     <% current_user.games.where(ongoing: true).each do |game| %>
       <div class="card-game">
@@ -14,5 +13,4 @@
       </div>
     <% end %>
   </div>
-
 </div>
