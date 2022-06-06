@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @my_ended_games = current_user.my_ended_games
+    @my_ended_games = current_user.my_ended_games.order("updated_at desc")
   end
 
   private
