@@ -1,5 +1,5 @@
 <% if left_grid.game.ongoing %>
-  <table class="game-table" style="margin:20px;">
+  <table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %>">
     <% left_grid.cells.each do |cell| %>
       <% if cell.position.modulo(((left_grid.cells.size)**(0.5)).to_i) == 1 %>
         <tr>
