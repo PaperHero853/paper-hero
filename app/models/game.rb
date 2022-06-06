@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   has_many :grids, dependent: :destroy
   has_many :users, through: :grids
+  validates :grid_size, numericality: { less_than_or_equal_to: 16 }
 
   def opponent_name(user)
     grids.where.not(user: user).first.user.username
