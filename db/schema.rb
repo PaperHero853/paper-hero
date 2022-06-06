@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_03_100427) do
+ActiveRecord::Schema.define(version: 2022_06_06_100856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,14 @@ ActiveRecord::Schema.define(version: 2022_06_03_100427) do
     t.index ["grid_id"], name: "index_cells_on_grid_id"
   end
 
+  create_table "chatrooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "game_id"
+    t.index ["game_id"], name: "index_chatrooms_on_game_id"
+  end
+
   create_table "desks", force: :cascade do |t|
     t.integer "size_x", default: 1
     t.integer "size_y", default: 1
@@ -70,6 +78,8 @@ ActiveRecord::Schema.define(version: 2022_06_03_100427) do
     t.boolean "ongoing", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "grid_size", default: 10
+    t.integer "desks", default: 4
   end
 
   create_table "grids", force: :cascade do |t|
@@ -83,6 +93,16 @@ ActiveRecord::Schema.define(version: 2022_06_03_100427) do
     t.integer "hit_count", default: 0
     t.index ["game_id"], name: "index_grids_on_game_id"
     t.index ["user_id"], name: "index_grids_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.bigint "chatroom_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,7 +121,10 @@ ActiveRecord::Schema.define(version: 2022_06_03_100427) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cells", "grids"
+  add_foreign_key "chatrooms", "games"
   add_foreign_key "desks", "grids"
   add_foreign_key "grids", "games"
   add_foreign_key "grids", "users"
+  add_foreign_key "messages", "chatrooms"
+  add_foreign_key "messages", "users"
 end

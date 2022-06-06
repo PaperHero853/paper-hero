@@ -39,22 +39,20 @@ puts "-------------------------"
 puts "Creating Ongoing Games..."
 
 def create_ongoing_game(creator, opponent)
+  # Chatroom.create!(name: "Test", game_id: @game.id)
   @game = Game.new(ongoing: true)
   @game.save!
-  @grid_owner = Grid.new(game_id: @game.id, user_id: creator.id, creator: true, playing: false)
-  @grid_opponent = Grid.new(game_id: @game.id, user_id: opponent.id, playing: true)
+  @grid_owner = Grid.new(game: @game, user: creator, creator: true, playing: false)
+  @grid_opponent = Grid.new(game: @game, user: opponent, playing: true)
   grid_creation(@grid_owner)
   grid_creation(@grid_opponent)
 end
 
-GRID_SIZE = 10
-DESK_NUMBER = 5
-
 def grid_creation(grid)
-  desk_positions = (1..GRID_SIZE**2).to_a.sample(DESK_NUMBER)
+  desk_positions = (1..@game.grid_size**2).to_a.sample(@game.cells_number)
   int = 1
-  (GRID_SIZE**2).times do
-    cell = Cell.new(grid_id: grid.id)
+  (@game.grid_size**2).times do
+    cell = Cell.new(grid: grid)
     cell.position = int
     cell.full = true if desk_positions.include?(cell.position)
     cell.save
@@ -74,8 +72,8 @@ puts "Creating Ended Games..."
 def create_ended_game(creator, opponent)
   @game = Game.new
   @game.save!
-  @grid_owner = Grid.create(game_id: @game.id, user_id: creator.id, creator: true, playing: false)
-  @grid_opponent = Grid.create(game_id: @game.id, user_id: opponent.id, playing: false, win: true)
+  @grid_owner = Grid.create(game: @game, user: creator, creator: true, playing: false)
+  @grid_opponent = Grid.create(game: @game, user: opponent, playing: false, win: true)
   grid_creation(@grid_owner)
   grid_creation(@grid_opponent)
 end

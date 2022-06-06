@@ -1,34 +1,40 @@
 <%= render 'shared/navbar' %>
+
+
 <div class="container">
   <% if @game.ongoing %>
     <%= link_to "Quit game", quit_game_path(@game), method: :patch, class: "btn btn-cta", id:"btn-small" %>
   <% else %>
     <%= link_to "Play again!", user_path, class: "btn btn-gradient" %>
   <% end %>
-  <div class="game-platform">
-    <div class="game-grid user-grid">
-      <h2><%= @grid_current_user.user.username %></h2>
-      <% if @game.ongoing %>
-        <p><%= @grid_current_user.playing ? "Your Turn, shoot in #{@grid_opponent.user.username}'s face!" : "..." %></p>
-      <% else %>
-        <p><%= @grid_current_user.win ? "Congratulations, you won wouhooouuu !" : "You lost you piece of shit !" %></p>
-      <% end %>
-      <% if @game.ongoing %>
-        <%= render 'grids/grid', cells: @cells_current_user, grid: @grid_current_user %>
-      <% end %>
-      <p>Your hits: <%= @grid_opponent.hit_count %>,  </p>
-    </div>
-    <div class="game-grid opponent-grid">
-      <h2><%= @grid_opponent.user.username %></h2>
-      <% if @game.ongoing %>
-        <p><%= @grid_opponent.playing ? "Wait for this dumbass to play..." : "..." %></p>
-      <% else %>
-        <p><%= @grid_opponent.win ? "C'est lui le vainqueur, fait lui un bisou" : "..." %></p>
-      <% end %>
-      <% if @game.ongoing %>
-        <%= render 'grids/grid', cells: @cells_opponent, grid: @grid_opponent %>
-      <% end %>
-      <p>Opponent hits: <%= @grid_current_user.hit_count %></p>
+
+  <div class = "chat-game">
+    <%= render 'chatrooms/chatroom' %>
+    <div class="game-platform">
+      <div class="game-grid user-grid">
+        <h2><%= @grid_current_user.user.username %></h2>
+        <% if @game.ongoing %>
+          <p><%= @grid_current_user.playing ? "Your Turn, shoot in #{@grid_opponent.user.username}'s face!" : "..." %></p>
+        <% else %>
+          <p><%= @grid_current_user.win ? "Congratulations, you won wouhooouuu !" : "You lost you piece of shit !" %></p>
+        <% end %>
+        <% if @game.ongoing %>
+          <%= render 'grids/grid', cells: @cells_current_user, grid: @grid_current_user %>
+        <% end %>
+        <p>Your hits: <%= @grid_opponent.hit_count %></p>
+      </div>
+      <div class="game-grid opponent-grid">
+        <h2><%= @grid_opponent.user.username %></h2>
+        <% if @game.ongoing %>
+          <p><%= @grid_opponent.playing ? "Wait for this dumbass to play..." : "..." %></p>
+        <% else %>
+          <p><%= @grid_opponent.win ? "C'est lui le vainqueur, fait lui un bisou" : "..." %></p>
+        <% end %>
+        <% if @game.ongoing %>
+          <%= render 'grids/grid', cells: @cells_opponent, grid: @grid_opponent %>
+        <% end %>
+        <p>Opponent hits: <%= @grid_current_user.hit_count %></p>
+      </div>
     </div>
   </div>
 </div>

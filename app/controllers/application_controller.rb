@@ -2,10 +2,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  GRID_SIZE = 10
-  DESK_NUMBER = 16
-  DESKS = [[3, 2], [2, 2], [2, 2], [2, 1]]
-
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :photo])
@@ -20,11 +16,11 @@ class ApplicationController < ActionController::Base
 
   def coord(position)
     position -= 1
-    coord = [position.divmod(GRID_SIZE).first, position.divmod(GRID_SIZE).last]
+    coord = [position.divmod(@game.grid_size).first, position.divmod(@game.grid_size).last]
   end
 
   def pos(coordinates)
-    coordinates.last + (GRID_SIZE * coordinates.first) + 1
+    coordinates.last + (@game.grid_size * coordinates.first) + 1
   end
 
   def area(origin, desk)
