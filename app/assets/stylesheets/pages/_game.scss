@@ -3,12 +3,19 @@
   flex-direction:row;
   justify-content:space-around;
   width: 100%;
-  margin-top: 15px;
-  margin: 10px 0 0 0 ;
+  margin: 0;
   padding: 10px;
   .game-table {
     border: 3px solid black;
+    margin: 0px;
   }
+}
+h2 {
+  font-size: 1.5rem;
+}
+
+p {
+  font-size: 0.8rem;;
 }
 
 // Small devices (landscape phones, 700px and up)

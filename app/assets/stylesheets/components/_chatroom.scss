@@ -1,8 +1,9 @@
 .chatroom {
   background: white;
   margin-top: 9px;
-  height: 75vh;
-  width: 25%;
+  height: 80vh;
+  width: 35%;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
