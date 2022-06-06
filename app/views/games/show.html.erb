@@ -9,9 +9,7 @@
   <% end %>
 
   <div class = "chat-game">
-    <div>
-      <%= render 'chatrooms/chatroom' %>
-    </div>
+    <%= render 'chatrooms/chatroom' %>
     <div class="game-platform">
       <div class="game-grid user-grid">
         <h2><%= @grid_current_user.user.username %></h2>
@@ -23,7 +21,7 @@
         <% if @game.ongoing %>
           <%= render 'grids/grid', cells: @cells_current_user, grid: @grid_current_user %>
         <% end %>
-        <p>Your hits: <%= @grid_opponent.hit_count %>,  </p>
+        <p>Your hits: <%= @grid_opponent.hit_count %></p>
       </div>
       <div class="game-grid opponent-grid">
         <h2><%= @grid_opponent.user.username %></h2>
