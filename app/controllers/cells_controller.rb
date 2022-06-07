@@ -1,5 +1,4 @@
 class CellsController < ApplicationController
-
   def play
     cell = Cell.find(params[:id])
     cell.hit = true if cell.full
@@ -41,7 +40,6 @@ class CellsController < ApplicationController
         ongoing: game_ongoing
       }
     )
-    # raise
     redirect_to game_path(cell.grid.game.id)
   end
 

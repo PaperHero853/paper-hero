@@ -7,12 +7,9 @@ export default class extends Controller {
   static values = { gameId: Number }
 
   connect() {
-
     this.myModal = new Modal(document.getElementById('victory_modal'), {
       keyboard: false
     })
-    console.log(this.myModal);
-
     this.channel = consumer.subscriptions.create(
       { channel: "GameChannel", id: this.gameIdValue },
     //   { received: data => console.log(data) }
@@ -23,17 +20,15 @@ export default class extends Controller {
         this.buttonTarget.innerHTML = data.button;
         this.leftphraseTarget.innerHTML = data.leftphrase;
         if (!data.ongoing) {
-          console.log("coucou");
-          this.myModal.show()
+          this.myModal.show();
         }
         }
       }
     )
     // console.log("Ready to play !")
   }
-
-  disconnect() {
-    console.log("Unsubscribed from the game")
-    this.channel.unsubscribe()
-  }
+  // disconnect() {
+  //   console.log("Unsubscribed from the game")
+  //   this.channel.unsubscribe()
+  // }
 }

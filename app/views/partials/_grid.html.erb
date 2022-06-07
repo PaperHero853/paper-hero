@@ -31,7 +31,7 @@
           </td>
         <% else %>
           <td class="not-tested">
-            <%= link_to cell_path(cell.id) do %>
+            <%= link_to cell_path(cell.id), remote: true do %>
               <div class="cell-link"></div>
             <% end %>
           </td>

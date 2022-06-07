@@ -29,14 +29,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title" id="staticBackdropLabel">Victory!</h1>
-        <a href=<%="/users/#{current_user.id}"%> type="button" class="btn-close"></a>
+        <a href=<%="/users/#{current_user.id}" type="button" class="btn-close"></a>
       </div>
       <div class="modal-body">
       <% if @grid_current_user.win %>
-        <%= cl_image_tag(@grid_current_user.user.photo.key, width: 60) %>
+        <%= cl_image_tag(@grid_current_user.user.photo.key, class: 'avatar-large') %>
         <h3><%= @grid_current_user.user.username %> wins the game.</h3>
       <% else %>
-        <%= cl_image_tag(@grid_opponent.user.photo.key, width: 60) %>
+        <%= cl_image_tag(@grid_opponent.user.photo.key, class: 'avatar-large') %>
         <h3><%= @grid_opponent.user.username %> wins the game.</h3>
       <% end %>
       </div>
