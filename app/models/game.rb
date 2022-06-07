@@ -1,14 +1,12 @@
 class Game < ApplicationRecord
   has_many :grids, dependent: :destroy
   has_many :users, through: :grids
-  has_one :chatroom
-  validates :grid_size, numericality: { less_than_or_equal_to: 16 }
+  has_one :chatroom, dependent: :destroy
+  validates :grid_size, numericality: { greater_than_or_equal_to: 6, less_than_or_equal_to: 16 }
   after_create :create_chatroom
-  validates :grid_size, numericality: { less_than_or_equal_to: 16 }
 
   def create_chatroom
     Chatroom.create!(name: "game #{self.id}", game: self)
-
   end
 
   def opponent_name(user)
