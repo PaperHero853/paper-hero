@@ -16,12 +16,15 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(ongoing: true, grid_size: params[:game][:grid_size], desks: params[:game][:desks])
     @users = User.all
-    @grid_owner = Grid.new(game: @game, user: current_user, creator: true, playing: false)
-    @grid_opponent = Grid.new(game: @game, playing: true)
+    @grid_owner = Grid.new(user: current_user, creator: true, playing: false)
+    @grid_opponent = Grid.new(playing: true)
     @grid_opponent.user_id = params[:game][:user_ids]
     if current_user != @grid_opponent.user
+      @game.save
+      @grid_owner.game = @game
+      @grid_opponent.game = @game
       byebug
-      if @game.save && @grid_owner.save && @grid_opponent.save
+      if @grid_owner.save && @grid_opponent.save
         grid_creation(@grid_owner)
         grid_creation(@grid_opponent)
         redirect_to game_path(@game)
