@@ -46,8 +46,8 @@ class GamesController < ApplicationController
       @grid_current_user = grids.last
       @grid_opponent = grids.first
     end
-    @cells_current_user = Cell.where(grid: @grid_current_user).order(position: :asc)
-    @cells_opponent = Cell.where(grid: @grid_opponent).order(position: :asc)
+    @cells_current_user = @grid_current_user.ordered_cells
+    @cells_opponent = @grid_opponent.ordered_cells
   end
 
   def quit

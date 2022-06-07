@@ -28,8 +28,8 @@ class CellsController < ApplicationController
       opponent_grid.update(playing: true)
     end
     user_grid.update(playing: false)
-    cells_opponent = Cell.where(grid: opponent_grid).order(position: :asc)
-    cells_current_user = Cell.where(grid: user_grid).order(position: :asc)
+    cells_opponent = opponent_grid.ordered_cells
+    cells_current_user = user_grid.ordered_cells
     GameChannel.broadcast_to(
       cell.grid.game,
       {
