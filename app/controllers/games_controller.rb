@@ -23,7 +23,6 @@ class GamesController < ApplicationController
       @game.save
       @grid_owner.game = @game
       @grid_opponent.game = @game
-      byebug
       if @grid_owner.save && @grid_opponent.save
         grid_creation(@grid_owner)
         grid_creation(@grid_opponent)
