@@ -53,9 +53,10 @@ def desks_positioning(grid)
     positions = (1..@game.grid_size**2).to_a
     desk = desk.sample(2)
     cells = grid.cells_full
-    full_locations = full_locations(cells)
     origin = coord(positions.sample)
-    while bad_positioning_tests(desk, origin, full_locations)
+    full_locations = full_locations(cells)
+    unauthorized_locations = remove_neighboors(full_locations)
+      while bad_positioning_tests(desk, origin, unauthorized_locations)
       positions.delete(pos(origin))
       origin = coord(positions.sample)
     end
@@ -86,6 +87,34 @@ def full_locations(cells)
     end
   end
   output.sort
+end
+
+def remove_neighboors(full_locations)
+  output = []
+  if full_locations.empty?
+    output = []
+  else
+    full_locations.each do |cell|
+      output << cell
+      neighboor(cell.first).each do |line|
+        neighboor(cell.last).each do |column|
+          output << [cell.first + line, cell.last + column]
+        end
+      end
+    end
+    output.sort.uniq!
+  end
+  return output
+end
+
+def neighboor(number)
+  if number.positive? && number < 9
+    [-1, 0, 1]
+  elsif number.positive?
+    [-1, 0]
+  else
+    [0, 1]
+  end
 end
 
 def coord(position)
