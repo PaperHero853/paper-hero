@@ -22,12 +22,10 @@ td {
 
 .missed {
   background-size: cover;
-  background-image: linear-gradient(rgba(117, 43, 43, 0.5), rgba(236, 10, 10, 0.3)),
-  url("Emoji-red.jpg");
+  background-image: url("failed.png");
 }
 
 .hit {
   background-size: cover;
-  background-image: linear-gradient(rgba(4, 55, 18, 0.5), rgba(100, 233, 118, 0.3)),
-  url("Emoji-green.jpg");
+  background-image: url("ok.png");
 }

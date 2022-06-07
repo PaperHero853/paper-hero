@@ -1,4 +1,5 @@
 <% if left_grid.game.ongoing %>
+<div class="wrapper">
   <table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %>">
     <% grid_cells.each do |cell| %>
       <% if cell.position.modulo(((grid_cells.size)**(0.5)).to_i) == 1 %>
@@ -6,35 +7,35 @@
       <% end %>
       <% if cell.visible %>
         <% if cell.hit %>
-          <td class="hit">
+          <td class="hit" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
             <div class="cell-link"></div>
           </td>
         <% else %>
-          <td class="missed">
+          <td class="missed" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
             <div class="cell-link"></div>
           </td>
         <% end %>
       <% else %>
         <% if visible %>
           <% if cell.full %>
-            <td class="full">
+            <td class="full" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
               <div class="cell-link"></div>
             </td>
             <% else %>
-            <td class="not-tested">
+            <td class="not-tested" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
               <div class="cell-link"></div>
             </td>
           <% end %>
         <% elsif left_grid.playing %>
-          <td class="not-tested">
+          <td class="not-tested" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
             <div class="cell-link"></div>
           </td>
         <% elsif cell.state == "waiting" %>
-          <td class="waiting">
+          <td class="waiting" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
             <div class="cell-link"></div>
           </td>
         <% else %>
-          <td class="not-tested">
+          <td class="not-tested" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
             <%= link_to cell_path(cell.id) do %>
               <div class="cell-link"></div>
             <% end %>
@@ -46,9 +47,10 @@
       <% end %>
     <% end %>
   </table>
+  </div>
   <% if left_grid.shot_count == 0 %>
     <% total = left_grid.hit_count %>
   <% end %>
   <p>  Total hits: <%= total %>  </p>
-  <p>  Current hits: <%= right_grid.shot_count %>  </p>
+  <p>  Current hits: <%= left_grid.shot_count %>  </p>
 <% end %>
