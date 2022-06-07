@@ -78,7 +78,6 @@ class GamesController < ApplicationController
   end
 
   def desks_positioning(grid)
-    output = []
     @game.desks_array.each do |desk|
       positions = (1..@game.grid_size**2).to_a
       desk = desk.sample(2)

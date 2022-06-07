@@ -8,7 +8,6 @@ class Game < ApplicationRecord
 
   def create_chatroom
     Chatroom.create!(name: "game #{self.id}", game: self)
-
   end
 
   def opponent_name(user)

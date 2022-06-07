@@ -28,17 +28,18 @@ class CellsController < ApplicationController
       opponent_grid.update(playing: true)
     end
     user_grid.update(playing: false)
+    cells_opponent = Cell.where(grid: opponent_grid).order(position: :asc)
+    cells_current_user = Cell.where(grid: user_grid).order(position: :asc)
     GameChannel.broadcast_to(
       cell.grid.game,
       {
-        left_grid: render_to_string(partial: "partials/grid", locals: {left_grid: opponent_grid, right_grid: user_grid, visible: true}),
-        right_grid: render_to_string(partial: "partials/grid", locals: {left_grid: user_grid, right_grid: opponent_grid, visible: false}),
+        left_grid: render_to_string(partial: "partials/grid", locals: {left_grid: opponent_grid, right_grid: user_grid, visible: true, grid_cells: cells_opponent}),
+        right_grid: render_to_string(partial: "partials/grid", locals: {left_grid: user_grid, right_grid: opponent_grid, visible: false, grid_cells: cells_current_user}),
         button: render_to_string(partial: "partials/button", locals: {game: user_grid.game}),
         leftphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: opponent_grid, right_grid: user_grid})
         # rightphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: user_grid, right_grid: opponent_grid})
       }
     )
-    # raise
     redirect_to game_path(cell.grid.game.id)
   end
 
