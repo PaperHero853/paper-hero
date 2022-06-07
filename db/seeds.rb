@@ -49,11 +49,10 @@ def grid_creation(grid)
 end
 
 def desks_positioning(grid)
-  output = []
   @game.desks_array.each do |desk|
     positions = (1..@game.grid_size**2).to_a
     desk = desk.sample(2)
-    cells = Cell.where(grid: grid, full: true)
+    cells = grid.cells_full
     full_locations = full_locations(cells)
     origin = coord(positions.sample)
     while bad_positioning_tests(desk, origin, full_locations)

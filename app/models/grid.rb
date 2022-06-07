@@ -8,4 +8,8 @@ class Grid < ApplicationRecord
   def ordered_cells
     Cell.where(grid: self).order(position: :asc)
   end
+
+  def cells_full
+    Cell.where(grid: self, full: true)
+  end
 end
