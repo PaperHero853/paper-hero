@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def coord(position)
     position -= 1
-    coord = [position.divmod(@game.grid_size).first, position.divmod(@game.grid_size).last]
+    [position.divmod(@game.grid_size).first, position.divmod(@game.grid_size).last]
   end
 
   def pos(coordinates)

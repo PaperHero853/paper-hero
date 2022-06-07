@@ -1,7 +1,7 @@
 <% if left_grid.game.ongoing %>
   <table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %>">
-    <% left_grid.cells.each do |cell| %>
-      <% if cell.position.modulo(((left_grid.cells.size)**(0.5)).to_i) == 1 %>
+    <% grid_cells.each do |cell| %>
+      <% if cell.position.modulo(@game.grid_size) == 1 %>
         <tr>
       <% end %>
       <% if cell.visible %>
@@ -29,6 +29,10 @@
           <td class="not-tested">
             <div class="cell-link"></div>
           </td>
+        <% elsif cell.state == "waiting" %>
+          <td class="waiting">
+            <div class="cell-link"></div>
+          </td>
         <% else %>
           <td class="not-tested">
             <%= link_to cell_path(cell.id), remote: true do %>
@@ -37,10 +41,14 @@
           </td>
         <% end %>
       <% end %>
-      <% if cell.position.modulo(((left_grid.cells.size)**(0.5)).to_i) == 0 %>
+      <% if cell.position.modulo(@game.grid_size) == 0 %>
         </tr>
       <% end %>
     <% end %>
   </table>
-  <p>  Hits: <%= left_grid.hit_count %>  </p>
+  <% if left_grid.shot_count == 0 %>
+    <% total = left_grid.hit_count %>
+  <% end %>
+  <p>  Total hits: <%= total %>  </p>
+  <p>  Current hits: <%= right_grid.shot_count %>  </p>
 <% end %>

@@ -16,10 +16,13 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(ongoing: true, grid_size: params[:game][:grid_size], desks: params[:game][:desks])
     @users = User.all
-    if @game.save
-      @grid_owner = Grid.new(game: @game, user: current_user, creator: true, playing: false)
-      @grid_opponent = Grid.new(game: @game, playing: true)
-      @grid_opponent.user_id = params[:game][:user_ids]
+    @grid_owner = Grid.new(user: current_user, creator: true, playing: false)
+    @grid_opponent = Grid.new(playing: true)
+    @grid_opponent.user_id = params[:game][:user_ids]
+    if current_user != @grid_opponent.user
+      @game.save
+      @grid_owner.game = @game
+      @grid_opponent.game = @game
       if @grid_owner.save && @grid_opponent.save
         grid_creation(@grid_owner)
         grid_creation(@grid_opponent)
@@ -29,17 +32,15 @@ class GamesController < ApplicationController
         render :new
       end
     else
-      flash[:notice] = "Sorry, something went wrong during the game creation!"
+      flash[:notice] = "Sorry, you cannot play against yourself!"
       render :new
     end
   end
 
   def show
     @game = Game.find(params[:id])
-    
     @chatroom = @game.chatroom
     @message = Message.new
-    
     grids = Grid.where(game: @game)
     if grids.first.user_id == current_user.id
       @grid_current_user = grids.first
@@ -48,10 +49,8 @@ class GamesController < ApplicationController
       @grid_current_user = grids.last
       @grid_opponent = grids.first
     end
-    @cells_current_user = Cell.where(grid: @grid_current_user).order(position: :asc)
-    @cells_opponent = Cell.where(grid: @grid_opponent).order(position: :asc)
-    @current_user_full = full_locations(@cells_current_user)
-    @opponent_full = full_locations(@cells_opponent)
+    @cells_current_user = @grid_current_user.ordered_cells
+    @cells_opponent = @grid_opponent.ordered_cells
   end
 
   def quit
@@ -82,18 +81,14 @@ class GamesController < ApplicationController
   end
 
   def desks_positioning(grid)
-    output = []
     @game.desks_array.each do |desk|
       positions = (1..@game.grid_size**2).to_a
       desk = desk.sample(2)
-      cells = Cell.where(grid: grid, full: true)
-      if cells.empty?
-        full_locations = []
-      else
-        full_locations = cells.map { |ele| coord(ele.position) }
-      end
+      cells = grid.cells_full
       origin = coord(positions.sample)
-      while bad_positioning_tests(desk, origin, full_locations)
+      full_locations = full_locations(cells)
+      unauthorized_locations = remove_neighboors(full_locations)
+      while bad_positioning_tests(desk, origin, unauthorized_locations)
         if positions.empty?
           flash[:notice] = "Sorry, no possibility to place the desks!"
           raise
@@ -113,7 +108,6 @@ class GamesController < ApplicationController
         flash[:notice] = "Sorry, something went wrong during the desk #{desk.first}x#{desk.last} positioning!"
         render :new
       end
-      output << { origin: origin, area: area(origin, desk), full: full_locations }
     end
   end
 
@@ -126,9 +120,41 @@ class GamesController < ApplicationController
 
   def full_locations(cells)
     output = []
-    cells.each do |cell|
-      output << cell.position if cell.full
+    if cells.nil?
+      output
+    else
+      cells.each do |cell|
+        output << coord(cell.position) if cell.full
+      end
     end
-    output
+    output.sort
+  end
+
+  def remove_neighboors(full_locations)
+    output = []
+    if full_locations.empty?
+      output = []
+    else
+      full_locations.each do |cell|
+        output << cell
+        neighboor(cell.first).each do |line|
+          neighboor(cell.last).each do |column|
+            output << [cell.first + line, cell.last + column]
+          end
+        end
+      end
+      output.sort.uniq!
+    end
+    return output
+  end
+
+  def neighboor(number)
+    if number.positive? && number < 9
+      [-1, 0, 1]
+    elsif number.positive?
+      [-1, 0]
+    else
+      [0, 1]
+    end
   end
 end
