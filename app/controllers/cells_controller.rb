@@ -47,12 +47,15 @@ class CellsController < ApplicationController
     else #Si la game continue
     end
 
+    cells_opponent = opponent_grid.ordered_cells
+    cells_current_user = user_grid.ordered_cells
+
     # Action Cable
     GameChannel.broadcast_to(
       cell.grid.game,
       {
-        left_grid: render_to_string(partial: "partials/grid", locals: {left_grid: opponent_grid, right_grid: user_grid, visible: true}),
-        right_grid: render_to_string(partial: "partials/grid", locals: {left_grid: user_grid, right_grid: opponent_grid, visible: false}),
+        left_grid: render_to_string(partial: "partials/grid", locals: {left_grid: opponent_grid, right_grid: user_grid, visible: true, grid_cells: cells_opponent}),
+        right_grid: render_to_string(partial: "partials/grid", locals: {left_grid: user_grid, right_grid: opponent_grid, visible: false, grid_cells: cells_current_user}),
         button: render_to_string(partial: "partials/button", locals: {game: user_grid.game}),
         leftphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: opponent_grid, right_grid: user_grid})
       }

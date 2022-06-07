@@ -40,26 +40,86 @@ puts "Done"
 puts "-------------------------"
 puts "Creating Ongoing Games..."
 
+def grid_creation(grid)
+  int = 1
+  (@game.grid_size**2).times do
+    cell = Cell.new(grid: grid)
+    cell.position = int
+    int += 1 if cell.save
+  end
+  desks_positioning(grid)
+end
+
+def desks_positioning(grid)
+  @game.desks_array.each do |desk|
+    positions = (1..@game.grid_size**2).to_a
+    desk = desk.sample(2)
+    cells = grid.cells_full
+    full_locations = full_locations(cells)
+    origin = coord(positions.sample)
+    while bad_positioning_tests(desk, origin, full_locations)
+      positions.delete(pos(origin))
+      origin = coord(positions.sample)
+    end
+    desk_positioned = Desk.new(grid: grid, size_x: desk.first, size_y: desk.last, pos_origin: pos(origin))
+    desk_positioned.save
+    area(origin, desk).each do |coord|
+      position = pos(coord)
+      cell = Cell.where(grid: grid, position: position).first
+      cell.update(full: true)
+    end
+  end
+end
+
+def bad_positioning_tests(desk, origin, fulls)
+  test_a = (area(origin, desk) & fulls).size.positive?
+  test_y = origin.first + desk.last > @game.grid_size
+  test_x = origin.last + desk.first > @game.grid_size
+  test_a || test_x || test_y
+end
+
+def full_locations(cells)
+  output = []
+  if cells.nil?
+    output
+  else
+    cells.each do |cell|
+      output << coord(cell.position) if cell.full
+    end
+  end
+  output.sort
+end
+
+def coord(position)
+  position -= 1
+  [position.divmod(@game.grid_size).first, position.divmod(@game.grid_size).last]
+end
+
+def pos(coordinates)
+  coordinates.last + (@game.grid_size * coordinates.first) + 1
+end
+
+def area(origin, desk)
+  area = []
+  y = 0
+  desk.last.times do
+    x = 0
+    desk.first.times do
+      area << [origin.first + y, origin.last + x]
+      x += 1
+    end
+    y += 1
+  end
+  area
+end
+
 def create_ongoing_game(creator, opponent)
-  # Chatroom.create!(name: "Test", game_id: @game.id)
   @game = Game.new(ongoing: true)
   @game.save!
   @grid_owner = Grid.new(game: @game, user: creator, creator: true, playing: false)
   @grid_opponent = Grid.new(game: @game, user: opponent, playing: true)
   grid_creation(@grid_owner)
   grid_creation(@grid_opponent)
-end
-
-def grid_creation(grid)
-  desk_positions = (1..@game.grid_size**2).to_a.sample(@game.cells_number)
-  int = 1
-  (@game.grid_size**2).times do
-    cell = Cell.new(grid: grid)
-    cell.position = int
-    cell.full = true if desk_positions.include?(cell.position)
-    cell.save
-    int += 1
-  end
 end
 
 ongoing_game1 = create_ongoing_game(user1, user11)

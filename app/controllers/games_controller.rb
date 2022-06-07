@@ -36,10 +36,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    
     @chatroom = @game.chatroom
     @message = Message.new
-    
     grids = Grid.where(game: @game)
     if grids.first.user_id == current_user.id
       @grid_current_user = grids.first
@@ -48,10 +46,8 @@ class GamesController < ApplicationController
       @grid_current_user = grids.last
       @grid_opponent = grids.first
     end
-    @cells_current_user = Cell.where(grid: @grid_current_user).order(position: :asc)
-    @cells_opponent = Cell.where(grid: @grid_opponent).order(position: :asc)
-    @current_user_full = full_locations(@cells_current_user)
-    @opponent_full = full_locations(@cells_opponent)
+    @cells_current_user = @grid_current_user.ordered_cells
+    @cells_opponent = @grid_opponent.ordered_cells
   end
 
   def quit
@@ -82,16 +78,11 @@ class GamesController < ApplicationController
   end
 
   def desks_positioning(grid)
-    output = []
     @game.desks_array.each do |desk|
       positions = (1..@game.grid_size**2).to_a
       desk = desk.sample(2)
-      cells = Cell.where(grid: grid, full: true)
-      if cells.empty?
-        full_locations = []
-      else
-        full_locations = cells.map { |ele| coord(ele.position) }
-      end
+      cells = grid.cells_full
+      full_locations = full_locations(cells)
       origin = coord(positions.sample)
       while bad_positioning_tests(desk, origin, full_locations)
         if positions.empty?
@@ -113,7 +104,6 @@ class GamesController < ApplicationController
         flash[:notice] = "Sorry, something went wrong during the desk #{desk.first}x#{desk.last} positioning!"
         render :new
       end
-      output << { origin: origin, area: area(origin, desk), full: full_locations }
     end
   end
 
@@ -126,9 +116,13 @@ class GamesController < ApplicationController
 
   def full_locations(cells)
     output = []
-    cells.each do |cell|
-      output << cell.position if cell.full
+    if cells.nil?
+      output
+    else
+      cells.each do |cell|
+        output << coord(cell.position) if cell.full
+      end
     end
-    output
+    output.sort
   end
 end
