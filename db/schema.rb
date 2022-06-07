@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_100856) do
+ActiveRecord::Schema.define(version: 2022_06_07_093646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2022_06_06_100856) do
     t.bigint "grid_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "state", default: "hidden"
     t.index ["grid_id"], name: "index_cells_on_grid_id"
   end
 
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 2022_06_06_100856) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "hit_count", default: 0
+    t.integer "shot_count", default: 0
     t.index ["game_id"], name: "index_grids_on_game_id"
     t.index ["user_id"], name: "index_grids_on_user_id"
   end

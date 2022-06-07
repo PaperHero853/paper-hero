@@ -5,7 +5,9 @@
 puts "Reset database..."
 
 # destroy methods here
+Message.destroy_all
 User.destroy_all
+Chatroom.destroy_all
 Game.destroy_all
 
 puts "Done"
