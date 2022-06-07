@@ -63,6 +63,7 @@ class CellsController < ApplicationController
         ongoing: game_ongoing
       }
     )
+    byebug
     redirect_to game_path(cell.grid.game.id)
   end
 
