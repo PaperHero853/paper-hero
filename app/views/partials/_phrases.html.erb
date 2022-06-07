@@ -1,0 +1,5 @@
+<% if left_grid.game.ongoing %>
+  <p><%= left_grid.playing ? "Your Turn, shoot in #{right_grid.user.username}'s face!" : "Waiting for #{right_grid.user.username} to play" %></p>
+<% else  %>
+  <p><%= left_grid.win ? "Congratulations, you won wouhooouuu !" : "You lost because you are trash." %></p>
+<% end %>

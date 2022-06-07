@@ -1,0 +1,46 @@
+<% if left_grid.game.ongoing %>
+  <table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %>">
+    <% left_grid.cells.each do |cell| %>
+      <% if cell.position.modulo(((left_grid.cells.size)**(0.5)).to_i) == 1 %>
+        <tr>
+      <% end %>
+      <% if cell.visible %>
+        <% if cell.hit %>
+          <td class="hit">
+            <div class="cell-link"></div>
+          </td>
+        <% else %>
+          <td class="missed">
+            <div class="cell-link"></div>
+          </td>
+        <% end %>
+      <% else %>
+        <% if visible %>
+          <% if cell.full %>
+            <td class="full">
+              <div class="cell-link"></div>
+            </td>
+            <% else %>
+            <td class="not-tested">
+              <div class="cell-link"></div>
+            </td>
+          <% end %>
+        <% elsif left_grid.playing %>
+          <td class="not-tested">
+            <div class="cell-link"></div>
+          </td>
+        <% else %>
+          <td class="not-tested">
+            <%= link_to cell_path(cell.id) do %>
+              <div class="cell-link"></div>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+      <% if cell.position.modulo(((left_grid.cells.size)**(0.5)).to_i) == 0 %>
+        </tr>
+      <% end %>
+    <% end %>
+
+  </table>
+<% end %>
