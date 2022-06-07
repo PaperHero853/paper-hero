@@ -1,7 +1,7 @@
 class Game < ApplicationRecord
   has_many :grids, dependent: :destroy
   has_many :users, through: :grids
-  has_one :chatroom
+  has_one :chatroom, dependent: :destroy
   validates :grid_size, numericality: { less_than_or_equal_to: 16 }
   after_create :create_chatroom
   validates :grid_size, numericality: { less_than_or_equal_to: 16 }

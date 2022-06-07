@@ -36,10 +36,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    
     @chatroom = @game.chatroom
     @message = Message.new
-    
     grids = Grid.where(game: @game)
     if grids.first.user_id == current_user.id
       @grid_current_user = grids.first
@@ -87,11 +85,7 @@ class GamesController < ApplicationController
       positions = (1..@game.grid_size**2).to_a
       desk = desk.sample(2)
       cells = Cell.where(grid: grid, full: true)
-      if cells.empty?
-        full_locations = []
-      else
-        full_locations = cells.map { |ele| coord(ele.position) }
-      end
+      full_locations = full_locations(cells)
       origin = coord(positions.sample)
       while bad_positioning_tests(desk, origin, full_locations)
         if positions.empty?
@@ -126,8 +120,12 @@ class GamesController < ApplicationController
 
   def full_locations(cells)
     output = []
-    cells.each do |cell|
-      output << cell.position if cell.full
+    if cells.nil?
+      output
+    else
+      cells.each do |cell|
+        output << cell.position if cell.full
+      end
     end
     output
   end
