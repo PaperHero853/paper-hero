@@ -7,7 +7,7 @@ class CellsController < ApplicationController
     cell.state = "waiting"
     cell.save
 
-    # On trouve le game et les deux grilles
+    # On trouve le game et les deux grilles et on met à jour
     @game = cell.grid.game
     user_grid = Grid.find_by(game: cell.grid.game, playing: true)
     opponent_grid = Grid.find(cell.grid_id)
@@ -44,9 +44,9 @@ class CellsController < ApplicationController
       opponent_grid.update(playing: false)
       user_grid.update(playing: false)
       user_grid.game.update(ongoing: false)
-    else #Si la game continue
     end
 
+    # Pour régler le problème des cellules qui partent en couille.
     cells_opponent = opponent_grid.ordered_cells
     cells_current_user = user_grid.ordered_cells
 

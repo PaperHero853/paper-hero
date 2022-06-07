@@ -12,11 +12,12 @@ export default class extends Controller {
     //   { received: data => console.log(data) }
     //   { received: data => this.userTarget.innerHTML = data.left_grid }
       { received: data => {
+        // que si je suis PAS en train de jouer
         this.userTarget.innerHTML = data.left_grid,
         this.opponentTarget.innerHTML = data.right_grid,
         this.buttonTarget.innerHTML = data.button,
         this.leftphraseTarget.innerHTML = data.leftphrase
-        // this.rightphraseTarget.innerHTML = data.rightphrase
+        // sinon je fais rien
         }
       }
     )
