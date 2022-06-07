@@ -20,9 +20,9 @@
             <td class="full">
               <div class="cell-link"></div>
             </td>
-            <% else %>
+          <% elsif cell.state == "waiting" %>
             <td class="not-tested">
-              <div class="cell-link"></div>
+              <div class="waiting"></div>
             </td>
           <% end %>
         <% elsif left_grid.playing %>
@@ -42,5 +42,6 @@
       <% end %>
     <% end %>
   </table>
-  <p>  Hits: <%= left_grid.hit_count %>  </p>
+  <p>  Total hits: <%= left_grid.hit_count %>  </p>
+  <p>  Current shots: <%= right_grid.shot_count %>  </p>
 <% end %>

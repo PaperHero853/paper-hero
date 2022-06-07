@@ -22,7 +22,7 @@
     <div class="game-grid opponent-grid">
 
       <h2><%= @grid_opponent.user.username %></h2>
-      <p> ...</p>
+      <p>...</p>
 
       <div data-game-subscription-target="opponent">
         <%= render 'partials/grid', left_grid: @grid_opponent, right_grid: @grid_current_user, visible: false %>
