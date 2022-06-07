@@ -1,39 +1,48 @@
 <%= render 'shared/navbar' %>
 <div class="container chat-game" data-controller="game-subscription" data-game-subscription-game-id-value="<%= @game.id %>">
-  
   <%= render 'chatrooms/chatroom' %>
-
   <div class="game-platform">
     <div class="game-grid user-grid">
-
-      <h2><%= @grid_current_user.user.username %></h2>
-
+      <h1 style="margin:20px"><%= @grid_current_user.user.username %></h1>
       <div data-game-subscription-target="leftphrase">
         <%= render "partials/phrases", left_grid: @grid_current_user, right_grid: @grid_opponent %>
       </div>
-
       <div data-game-subscription-target="user">
         <%= render 'partials/grid', left_grid: @grid_current_user, right_grid: @grid_opponent, visible: true %>
       </div>
-
     </div>
-
-
     <div class="game-grid opponent-grid">
-
-      <h2><%= @grid_opponent.user.username %></h2>
-      <p> ...</p>
-
+      <h1 style="margin:20px"><%= @grid_opponent.user.username %></h1>
+      <p style="font-size:18px; margin:20px"> ...</p>
       <div data-game-subscription-target="opponent">
         <%= render 'partials/grid', left_grid: @grid_opponent, right_grid: @grid_current_user, visible: false %>
       </div>
-
     </div>
-
   </div>
-  
   <div data-game-subscription-target="button">
     <%= render "partials/button", game: @game %>
   </div>
-
+</div>
+<!-- Modal -->
+<div class="modal fade" id="victory_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="staticBackdropLabel">Victory!</h1>
+        <a href=<%="/users/#{current_user.id}"%> type="button" class="btn-close"></a>
+      </div>
+      <div class="modal-body">
+      <% if @grid_current_user.win %>
+        <%= cl_image_tag(@grid_current_user.user.photo.key, width: 60) %>
+        <h3><%= @grid_current_user.user.username %> wins the game.</h3>
+      <% else %>
+        <%= cl_image_tag(@grid_opponent.user.photo.key, width: 60) %>
+        <h3><%= @grid_opponent.user.username %> wins the game.</h3>
+      <% end %>
+      </div>
+      <div class="modal-footer">
+        <%= link_to "Play again!", "/users/#{current_user.id}", class: "btn btn-cta" %>
+      </div>
+    </div>
+  </div>
 </div>

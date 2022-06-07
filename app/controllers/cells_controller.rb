@@ -29,14 +29,16 @@ class CellsController < ApplicationController
       opponent_grid.update(playing: true)
     end
     user_grid.update(playing: false)
+    game_ongoing = user_grid.game.ongoing
     GameChannel.broadcast_to(
-      cell.grid.game,
+      @game,
       {
         left_grid: render_to_string(partial: "partials/grid", locals: {left_grid: opponent_grid, right_grid: user_grid, visible: true}),
         right_grid: render_to_string(partial: "partials/grid", locals: {left_grid: user_grid, right_grid: opponent_grid, visible: false}),
         button: render_to_string(partial: "partials/button", locals: {game: user_grid.game}),
-        leftphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: opponent_grid, right_grid: user_grid})
+        leftphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: opponent_grid, right_grid: user_grid}),
         # rightphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: user_grid, right_grid: opponent_grid})
+        ongoing: game_ongoing
       }
     )
     # raise
