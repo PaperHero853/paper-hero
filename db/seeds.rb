@@ -67,7 +67,6 @@ def desks_positioning(grid)
       cell = Cell.where(grid: grid, position: position).first
       cell.update(full: true)
     end
-    output << { origin: origin, area: area(origin, desk), full: full_locations }
   end
 end
 
@@ -84,10 +83,10 @@ def full_locations(cells)
     output
   else
     cells.each do |cell|
-      output << cell.position if cell.full
+      output << coord(cell.position) if cell.full
     end
   end
-  output
+  output.sort
 end
 
 def coord(position)

@@ -48,8 +48,6 @@ class GamesController < ApplicationController
     end
     @cells_current_user = Cell.where(grid: @grid_current_user).order(position: :asc)
     @cells_opponent = Cell.where(grid: @grid_opponent).order(position: :asc)
-    @current_user_full = full_locations(@cells_current_user)
-    @opponent_full = full_locations(@cells_opponent)
   end
 
   def quit
@@ -107,7 +105,6 @@ class GamesController < ApplicationController
         flash[:notice] = "Sorry, something went wrong during the desk #{desk.first}x#{desk.last} positioning!"
         render :new
       end
-      output << { origin: origin, area: area(origin, desk), full: full_locations }
     end
   end
 
@@ -124,9 +121,9 @@ class GamesController < ApplicationController
       output
     else
       cells.each do |cell|
-        output << cell.position if cell.full
+        output << coord(cell.position) if cell.full
       end
     end
-    output
+    output.sort
   end
 end
