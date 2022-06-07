@@ -28,14 +28,14 @@
               as: :radio_buttons,
               collection: @users.map { |user|
                 [raw(
-                  "<div class='notification'>
+                  "<div #{user != current_user ? "class='notification'" : "class='d-none'" } >
                     #{user.photo.key.nil? ? image_tag('leader.png', class: 'avatar-large') : cl_image_tag(user.photo.key, class: 'avatar-large')}
                     <div class='notification-content'>
                       <p>#{user.username}</p>
                     </div>
                   </div>"
                   ), user.id
-                ]
+                ] #if user != current_user
               },
               item_label_class: "mb-0",
               input_html: {
