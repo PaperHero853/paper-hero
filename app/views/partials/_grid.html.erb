@@ -46,6 +46,9 @@
       <% end %>
     <% end %>
   </table>
-  <p>  Total hits: <%= left_grid.hit_count %>  </p>
+  <% if left_grid.shot_count == 0 %>
+    <% total = left_grid.hit_count %>
+  <% end %>
+  <p>  Total hits: <%= total %>  </p>
   <p>  Current hits: <%= right_grid.shot_count %>  </p>
 <% end %>
