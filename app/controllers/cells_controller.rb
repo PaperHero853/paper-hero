@@ -27,13 +27,6 @@ class CellsController < ApplicationController
     end
 
     update_desk(cell)
-    puts("################################################################################################################################################################")
-    puts cell.inspect
-    puts("################################################################################################################################################################")
-    puts cell.grid.inspect
-    puts("################################################################################################################################################################")
-    
-
 
     # Si la game est finie
     if opponent_grid.hit_count >= @game.cells_number
@@ -46,7 +39,7 @@ class CellsController < ApplicationController
       user_grid.game.update(ongoing: false)
     end
 
-    # Pour régler le problème des cellules qui partent en couille.
+    # Pour régler le problème des cellules qui partent en couille
     cells_opponent = opponent_grid.ordered_cells
     cells_current_user = user_grid.ordered_cells
 
