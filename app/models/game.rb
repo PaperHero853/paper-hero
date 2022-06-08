@@ -2,7 +2,7 @@ class Game < ApplicationRecord
   has_many :grids, dependent: :destroy
   has_many :users, through: :grids
   has_one :chatroom, dependent: :destroy
-  validates :grid_size, numericality: { greater_than_or_equal_to: 6, less_than_or_equal_to: 16 }
+  validates :grid_size, numericality: { greater_than_or_equal_to: 6, less_than_or_equal_to: 14 }
   after_create :create_chatroom
 
   def create_chatroom
@@ -15,6 +15,17 @@ class Game < ApplicationRecord
 
   def my_grid(user)
     grids.find_by_user_id(user.id)
+  end
+
+  def desk_numbers(grid_size)
+    case grid_size
+    when 6
+      2
+    when 14
+      6
+    else
+      4
+    end
   end
 
   def desks_array
