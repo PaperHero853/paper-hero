@@ -51,7 +51,7 @@
 
 .btn-cta:hover {
   background: linear-gradient(#ffffff, #eff2f6);
-  color: rgb(0, 0, 0);
+  color: rgb(0, 0, 0) !important;
   box-shadow: 0.4rem 0.4rem 0 black;
   transform: translate(-0.4rem, -0.4rem);
 }

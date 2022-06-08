@@ -15,11 +15,12 @@
         </div>
       <% end %> 
       <%= simple_form_for(@game) do |f| %>
-        <%= f.submit "Create game", class: "btn btn-cta", id:"btn-small" %>
         <div class="game-inline-block">
           <div class="game-info">
-            <h4>Grid size</h4> 
-            <%= f.input :grid_size, label: false %>
+            <%= f.submit "Create game", class: "btn btn-cta", id:"btn-small" %>
+            <%= f.input :grid_size, label: "Game Mode", as: :range, input_html: { min: '6', max: '14', step: '4', value: '10' } %>
+            <div style="display:flex;flex-direction:row;justify-content:space-between;"><p>Easy</p><p>Medium</p><p>Hard</p></div>
+            <%#= f.input :desks, label: "Number of desks:", as: :radio_buttons, collection: 2..6 %>
           </div>
           <div class="users-list" data-controller="radio-button">
             <h4>Users</h4>
@@ -28,7 +29,7 @@
               label: "",
               collection: @users.map { |user|
                 [raw(
-                  "<div #{user != current_user ? "class='notification'" : "class='d-none'" } >
+                  "<div #{user != current_user ? "class='notification btn-cta'" : "class='d-none'" } >
                     #{user.photo.key.nil? ? image_tag('leader.png', class: 'avatar-large') : cl_image_tag(user.photo.key, class: 'avatar-large')}
                     <div class='notification-content'>
                       <p>#{user.username}</p>
