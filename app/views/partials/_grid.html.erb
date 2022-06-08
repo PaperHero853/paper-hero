@@ -1,3 +1,4 @@
+<%#= paper_ball_throw %>
 <% if left_grid.game.ongoing %>
   <table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %>">
     <% grid_cells.each do |cell| %>
@@ -35,7 +36,7 @@
           </td>
         <% else %>
           <td class="not-tested">
-            <%= link_to cell_path(cell.id) do %>
+            <%= link_to cell_path(cell.id), remote: true do %>
               <div class="cell-link"></div>
             <% end %>
           </td>
