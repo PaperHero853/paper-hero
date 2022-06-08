@@ -1,6 +1,8 @@
-<%#= paper_ball_throw %>
+<% paper_ball_throw ||= false %>
 <% if left_grid.game.ongoing %>
-<div class="wrapper" data-controller="anim" data-action="click->anim#paper">
+<div class="wrapper" 
+     data-grid-id="<%= left_grid.id %>"
+     data-game-subscription-target="grid">
   <table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %>">
     <% grid_cells.each do |cell| %>
       <% if cell.position.modulo(@game.grid_size) == 1 %>

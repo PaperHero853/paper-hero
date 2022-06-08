@@ -4,30 +4,46 @@ td {
 }
 td.paper-animation::after {
   content: "";
-  width: 45px;
-  height: 45px;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  background: url('https://freesvg.org/img/Crumpled-Paper.png') no-repeat 0 0;
+  background: url('animball.png') no-repeat 0 0;
   background-size: contain;
-  z-index: 10;
-  animation-name: throw;
-  animation-duration: 5s;
+  z-index: 1000;
+  animation-duration: 2s;
   animation-iteration-count: 1;
+  animation-name: throw;
   animation-timing-function: ease-in-out;
 }
- 
- 
+td.anim-1::after {
+  animation-name: throw;
+}
+td.anim-2::after {
+  animation-name: throw-2;
+}
 @keyframes throw {
   0% {
-    left: -2000%;
-    // right: -2000%;
-    // right: 2000%;
-    // top: 60%;
+    left: -500%; 
     top: -60%;
-    // bottom: -60%;
     transform: rotate(0deg);
   }
  
+  50% {
+    top: -270%;
+  }
+ 
+  100% {
+    left: 0;
+    top: 0;
+    transform: rotate(720deg);
+  }
+}
+@keyframes throw-2 {
+  0% {
+    right: -500%;
+    top: -60%;
+    transform: rotate(0deg);
+  }
  
   50% {
     top: -270%;

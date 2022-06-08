@@ -3,7 +3,7 @@ import consumer from "../channels/consumer"
 import { Modal } from 'bootstrap'
 
 export default class extends Controller {
-  static targets = ["currentUser", "opponent", "button", "leftphrase", "rightphrase"]
+  static targets = ["currentUser", "opponent", "button", "leftphrase", "rightphrase", "grid"]
   static values = { gameId: Number, currentUserId: Number }
 
   connect() {
@@ -12,7 +12,7 @@ export default class extends Controller {
     //   { received: data => console.log(data) }
     //   { received: data => this.userTarget.innerHTML = data.left_grid }
       { received: data => {
-        console.log(data);
+        console.log(data.paper_ball_throw);
         if (this.currentUserIdValue === data.current_user_id) {
           this.currentUserTarget.innerHTML = data.current_user_left_grid;
           this.opponentTarget.innerHTML = data.current_user_right_grid;
@@ -27,11 +27,40 @@ export default class extends Controller {
             keyboard: false
           })
           this.myModal.show();
+        } else {
+          if (data.paper_ball_throw) {
+            this.throwPaperBalls(data.grid_target)
+
+          }
         }
         }
       }
     )
     // console.log("Ready to play !")
+  }
+
+  throwPaperBalls(target) {
+    console.log(target)
+    console.log("lancé de bouletteeeeeesss")
+    console.log(this.gridTargets);
+    const gridToTarget = this.gridTargets.find((grid) => grid.dataset.gridId === `${target}`)
+    console.log(gridToTarget);
+    const tds = gridToTarget.querySelectorAll('td')
+    const randomTds = this.getRandomElements(tds)
+    console.log(randomTds);
+    randomTds.forEach((el) => el.classList.add('paper-animation'))
+
+  }
+
+  getRandomElements(elements) {
+    const randomElements = []
+    for (let index = 0; index < 4; index++) {
+      const randomNumber = Math.floor(Math.random() * elements.length)
+      const randomElement = elements[randomNumber];
+      console.log(randomElement);
+      randomElements.push(randomElement)
+    }
+    return randomElements
   }
   // disconnect() {
   //   console.log("Unsubscribed from the game")
