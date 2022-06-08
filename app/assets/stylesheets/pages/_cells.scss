@@ -17,15 +17,17 @@ td {
 }
 
 .waiting {
-  background-color: orange;
+  // background-color: orange;
+  background-size: cover;
+  background-image: url("waiting.jpg")
 }
 
 .missed {
   background-size: cover;
-  background-image: url("failed.png");
+  background-image: url("redv2.jpg");
 }
 
 .hit {
   background-size: cover;
-  background-image: url("ok.png");
+  background-image: url("greenv2.jpg");
 }

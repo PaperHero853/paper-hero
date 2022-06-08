@@ -5,8 +5,8 @@
   <% else %>
     <%= image_tag "leader.png", class: "avatar" %>
   <% end %>
-  <strong><%= message.user.username %></strong>
-  <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+  <strong class="txt-small"><%= message.user.username %></strong>
+  <i><%= message.created_at.strftime("%b %e at %k:%M") %></i>
 </small>
   <p class= "txt-small"><%= message.content %></p>
 </div>
