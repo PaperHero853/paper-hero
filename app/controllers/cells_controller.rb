@@ -56,13 +56,15 @@ class CellsController < ApplicationController
       @game,
       {
         current_user_id: current_user.id,
-        left_grid: render_to_string(partial: "partials/grid", locals: { left_grid: opponent_grid, right_grid: user_grid, visible: true, grid_cells: cells_opponent }),
+        left_grid: render_to_string(partial: "partials/grid", locals: { left_grid: opponent_grid, right_grid: user_grid, visible: true, grid_cells: cells_opponent, paper_ball_throw: paper_ball_throw }),
         right_grid: render_to_string(partial: "partials/grid", locals: { left_grid: user_grid, right_grid: opponent_grid, visible: false, grid_cells: cells_current_user }),
         button: render_to_string(partial: "partials/button", locals: { game: user_grid.game }),
         leftphrase: render_to_string(partial: "partials/phrases", locals: { left_grid: opponent_grid, right_grid: user_grid }),
         current_user_left_grid: render_to_string(partial: "partials/grid", locals: { left_grid: user_grid, right_grid: opponent_grid, visible: true, grid_cells: cells_current_user }),
         current_user_right_grid: render_to_string(partial: "partials/grid", locals: { left_grid: opponent_grid, right_grid: user_grid, visible: false, grid_cells: cells_opponent, paper_ball_throw: paper_ball_throw }),
-        ongoing: game_ongoing
+        ongoing: game_ongoing,
+        paper_ball_throw: paper_ball_throw,
+        grid_target: opponent_grid.id
       }
     )
     respond_to do |format|
