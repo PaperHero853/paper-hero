@@ -5,6 +5,7 @@ class CellsController < ApplicationController
     cell.hit = true if cell.full
     cell.state = "waiting"
     cell.save
+    paper_ball_throw = false
 
     # On trouve le game et les deux grilles et on met à jour
     @game = cell.grid.game
@@ -15,6 +16,7 @@ class CellsController < ApplicationController
     if (opponent_grid.shot_count % 4 != 0)
       opponent_grid.save
     else
+      paper_ball_throw = true
       opponent_grid.shot_count = 0
       Cell.where(state: "waiting").each do |cell|
         cell.state = "visible"
@@ -32,8 +34,6 @@ class CellsController < ApplicationController
     puts cell.grid.inspect
     puts("################################################################################################################################################################")
 
-
-
     # Si la game est finie
     if opponent_grid.hit_count >= @game.cells_number
       opponent_grid.update(playing: false)
@@ -45,7 +45,6 @@ class CellsController < ApplicationController
       user_grid.game.update(ongoing: false)
     end
 
-
     game_ongoing = user_grid.game.ongoing
 
     # Pour régler le problème des cellules qui partent en couille.
@@ -56,15 +55,20 @@ class CellsController < ApplicationController
     GameChannel.broadcast_to(
       @game,
       {
-        left_grid: render_to_string(partial: "partials/grid", locals: {left_grid: opponent_grid, right_grid: user_grid, visible: true, grid_cells: cells_opponent}),
-        right_grid: render_to_string(partial: "partials/grid", locals: {left_grid: user_grid, right_grid: opponent_grid, visible: false, grid_cells: cells_current_user}),
-        button: render_to_string(partial: "partials/button", locals: {game: user_grid.game}),
-        leftphrase: render_to_string(partial: "partials/phrases", locals: {left_grid: opponent_grid, right_grid: user_grid}),
+        current_user_id: current_user.id,
+        left_grid: render_to_string(partial: "partials/grid", locals: { left_grid: opponent_grid, right_grid: user_grid, visible: true, grid_cells: cells_opponent }),
+        right_grid: render_to_string(partial: "partials/grid", locals: { left_grid: user_grid, right_grid: opponent_grid, visible: false, grid_cells: cells_current_user }),
+        button: render_to_string(partial: "partials/button", locals: { game: user_grid.game }),
+        leftphrase: render_to_string(partial: "partials/phrases", locals: { left_grid: opponent_grid, right_grid: user_grid }),
+        current_user_left_grid: render_to_string(partial: "partials/grid", locals: { left_grid: user_grid, right_grid: opponent_grid, visible: true, grid_cells: cells_current_user }),
+        current_user_right_grid: render_to_string(partial: "partials/grid", locals: { left_grid: opponent_grid, right_grid: user_grid, visible: false, grid_cells: cells_opponent, paper_ball_throw: paper_ball_throw }),
         ongoing: game_ongoing
       }
     )
-    byebug
-    redirect_to game_path(cell.grid.game.id)
+    respond_to do |format|
+      format.html { redirect_to game_path(cell.grid.game.id) }
+      format.js
+    end
   end
 
   def update_desk(cell)

@@ -1,5 +1,8 @@
 <%= render 'shared/navbar' %>
-<div class="container chat-game" data-controller="game-subscription" data-game-subscription-game-id-value="<%= @game.id %>">
+<div class="container chat-game"
+     data-controller="game-subscription"
+     data-game-subscription-game-id-value="<%= @game.id %>"
+     data-game-subscription-current-user-id-value="<%= current_user.id %>">
   <%= render 'chatrooms/chatroom' %>
   <div class="game-platform">
     <div class="game-grid user-grid">
@@ -7,7 +10,7 @@
       <div data-game-subscription-target="leftphrase">
         <%= render "partials/phrases", left_grid: @grid_current_user, right_grid: @grid_opponent %>
       </div>
-      <div data-game-subscription-target="user">
+      <div data-game-subscription-target="currentUser">
         <%= render 'partials/grid', left_grid: @grid_current_user, right_grid: @grid_opponent, visible: true, grid_cells: @cells_current_user %>
       </div>
     </div>
@@ -23,26 +26,5 @@
     <%= render "partials/button", game: @game %>
   </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="victory_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title" id="staticBackdropLabel">Victory!</h1>
-        <a href=<%="/users/#{current_user.id}"%> type="button" class="btn-close"></a>
-      </div>
-      <div class="modal-body">
-      <% if @grid_current_user.win %>
-        <%= cl_image_tag(@grid_current_user.user.photo.key, class: 'avatar-large') %>
-        <h3><%= @grid_current_user.user.username %> wins the game.</h3>
-      <% else %>
-        <%= cl_image_tag(@grid_opponent.user.photo.key, class: 'avatar-large') %>
-        <h3><%= @grid_opponent.user.username %> wins the game.</h3>
-      <% end %>
-      </div>
-      <div class="modal-footer">
-        <%= link_to "Play again!", "/users/#{current_user.id}", class: "btn btn-cta" %>
-      </div>
-    </div>
-  </div>
-</div>
+
+<%= render "partials/modal" %>
