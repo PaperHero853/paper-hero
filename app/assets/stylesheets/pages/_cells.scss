@@ -9,25 +9,25 @@ td {
 }
 
 .not-tested {
-  background-color: #a8dadc;
+  background-color: #e2a24faa;
 }
 
 .full {
-  background-color: #274c77;
+  background-color: #BE6555;
 }
 
 .waiting {
-  background-color: orange;
+  // background-color: orange;
+  background-size: cover;
+  background-image: url("waiting.jpg")
 }
 
 .missed {
   background-size: cover;
-  background-image: linear-gradient(rgba(117, 43, 43, 0.5), rgba(236, 10, 10, 0.3)),
-  url("Emoji-red.jpg");
+  background-image: url("redv2.jpg");
 }
 
 .hit {
   background-size: cover;
-  background-image: linear-gradient(rgba(4, 55, 18, 0.5), rgba(100, 233, 118, 0.3)),
-  url("Emoji-green.jpg");
+  background-image: url("greenv2.jpg");
 }

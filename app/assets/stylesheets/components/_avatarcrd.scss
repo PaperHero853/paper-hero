@@ -2,7 +2,7 @@
 .notification {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 8px !important;
   background: white;
   padding: 8px 16px;
   width: 300px;
@@ -12,6 +12,13 @@
 .notification {
   flex-grow: 1;
   padding: 10px 24px;
+}
+
+input.checked ~ label .notification {
+  background: linear-gradient(#ffffff, #eff2f6);
+  color: rgb(0, 0, 0) !important;
+  box-shadow: 0.4rem 0.4rem 0 black;
+  transform: translate(-0.4rem, -0.4rem);
 }
 
 .avatar-large > img {

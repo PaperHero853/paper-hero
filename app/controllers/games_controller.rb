@@ -14,7 +14,8 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(ongoing: true, grid_size: params[:game][:grid_size], desks: params[:game][:desks])
+    @game = Game.new(ongoing: true, grid_size: params[:game][:grid_size])
+    @game.desks = @game.desk_numbers(@game.grid_size)
     @users = User.all
     @grid_owner = Grid.new(user: current_user, creator: true, playing: false)
     @grid_opponent = Grid.new(playing: true)

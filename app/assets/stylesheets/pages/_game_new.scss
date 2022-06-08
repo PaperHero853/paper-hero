@@ -1,0 +1,112 @@
+.custom-form {
+  .wrapper {
+    max-width: 700px;
+  }
+}
+
+.search_username {
+    height: 70px;
+}
+
+.game-inline-block {
+  justify-content: space-between;
+}
+
+.search-form-control .form-control {
+  height: 70px;
+}
+
+.game_grid_size, #game_grid_size {
+  margin: 0px;
+  margin-top: 10px;
+}
+
+input[type=range] {
+  height: 39px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 4px 4px 0px #DEDEDE;
+  background: #B0B0B0;
+  border-radius: 5px;
+  border: 0px solid #DEDEDE;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #BFBFBF;
+  border: 3px solid #BFBFBF;
+  height: 35px;
+  width: 20px;
+  border-radius: 8px;
+  background: #000000;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -11.5px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #B0B0B0;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 4px 4px 0px #DEDEDE;
+  background: #B0B0B0;
+  border-radius: 5px;
+  border: 0px solid #DEDEDE;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #BFBFBF;
+  border: 3px solid #BFBFBF;
+  height: 30px;
+  width: 20px;
+  border-radius: 8px;
+  background: #000000;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #B0B0B0;
+  border: 0px solid #DEDEDE;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0px #DEDEDE;
+}
+input[type=range]::-ms-fill-upper {
+  background: #B0B0B0;
+  border: 0px solid #DEDEDE;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0px #DEDEDE;
+}
+input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 0px 0px 0px #BFBFBF;
+  border: 3px solid #BFBFBF;
+  height: 30px;
+  width: 20px;
+  border-radius: 8px;
+  background: #000000;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #B0B0B0;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #B0B0B0;
+}

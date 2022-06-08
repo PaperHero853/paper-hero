@@ -1,39 +1,30 @@
 <%= render 'shared/navbar' %>
-<div class="container chat-game" data-controller="game-subscription" data-game-subscription-game-id-value="<%= @game.id %>">
-
+<div class="container chat-game"
+     data-controller="game-subscription"
+     data-game-subscription-game-id-value="<%= @game.id %>"
+     data-game-subscription-current-user-id-value="<%= current_user.id %>">
   <%= render 'chatrooms/chatroom' %>
-
   <div class="game-platform">
     <div class="game-grid user-grid">
-
-      <h2><%= @grid_current_user.user.username %></h2>
-
+      <h1 style="margin:20px"><%= @grid_current_user.user.username %></h1>
       <div data-game-subscription-target="leftphrase">
         <%= render "partials/phrases", left_grid: @grid_current_user, right_grid: @grid_opponent %>
       </div>
-
-      <div data-game-subscription-target="user">
+      <div data-game-subscription-target="currentUser">
         <%= render 'partials/grid', left_grid: @grid_current_user, right_grid: @grid_opponent, visible: true, grid_cells: @cells_current_user %>
       </div>
-
     </div>
-
-
     <div class="game-grid opponent-grid">
-
-      <h2><%= @grid_opponent.user.username %></h2>
-      <p>...</p>
-
+      <h1 style="margin:20px"><%= @grid_opponent.user.username %></h1>
+      <p style="font-size:18px; margin:20px"> ...</p>
       <div data-game-subscription-target="opponent">
         <%= render 'partials/grid', left_grid: @grid_opponent, right_grid: @grid_current_user, visible: false, grid_cells: @cells_opponent %>
       </div>
-
     </div>
-
   </div>
-
   <div data-game-subscription-target="button">
     <%= render "partials/button", game: @game %>
   </div>
-
 </div>
+
+<%= render "partials/modal" %>
