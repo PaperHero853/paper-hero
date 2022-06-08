@@ -49,6 +49,9 @@ export default class extends Controller {
     const randomTds = this.getRandomElements(tds)
     console.log(randomTds);
     randomTds.forEach((el) => el.classList.add('paper-animation'))
+    setTimeout(() => {
+      randomTds.forEach((el) => el.classList.remove('paper-animation')) 
+    }, 2500)
 
   }
 
