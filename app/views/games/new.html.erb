@@ -20,8 +20,9 @@
         <%= f.submit "Create game", class: "btn btn-cta", id:"btn-small" %>
         <div class="game-inline-block">
           <div class="game-info">
-            <%= f.input :grid_size, label: "Grid size:" %>
-            <%= f.input :desks, label: "Number of desks:", as: :radio_buttons, collection: 2..6 %>
+            <%= f.input :grid_size, label: "Game Mode", as: :range, input_html: { min: '6', max: '14', step: '4', value: '10' } %>
+            <div style="display:flex;flex-direction:row;justify-content:space-between;"><p>Easy</p><p>Medium</p><p>Hard</p></div>
+            <%#= f.input :desks, label: "Number of desks:", as: :radio_buttons, collection: 2..6 %>
           </div>
           <div class="users-list" data-controller="radio-button">
             <%= f.association :users,
