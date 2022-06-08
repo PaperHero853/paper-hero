@@ -1,8 +1,9 @@
+<%#= paper_ball_throw %>
 <% if left_grid.game.ongoing %>
-<div class="wrapper">
+<div class="wrapper" data-controller="anim" data-action="click->anim#paper">
   <table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %>">
     <% grid_cells.each do |cell| %>
-      <% if cell.position.modulo(((grid_cells.size)**(0.5)).to_i) == 1 %>
+      <% if cell.position.modulo(@game.grid_size) == 1 %>
         <tr>
       <% end %>
       <% if cell.visible %>
@@ -35,14 +36,15 @@
             <div class="cell-link"></div>
           </td>
         <% else %>
-          <td class="not-tested" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
-            <%= link_to cell_path(cell.id) do %>
+
+          <td class="not-tested" data-anim-target="td">
+            <%= link_to cell_path(cell.id), remote: true do %>
               <div class="cell-link"></div>
             <% end %>
           </td>
         <% end %>
       <% end %>
-      <% if cell.position.modulo(((left_grid.cells.size)**(0.5)).to_i) == 0 %>
+      <% if cell.position.modulo(@game.grid_size) == 0 %>
         </tr>
       <% end %>
     <% end %>

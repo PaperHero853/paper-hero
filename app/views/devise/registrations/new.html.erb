@@ -6,22 +6,22 @@
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= f.error_notification %>
 
-      <div class="form-inputs"> 
-        <p>Username</p>   
+      <div class="form-inputs">
+        <p>Username</p>
         <%= f.input :username, label: false %>
-        <p>Email</p> 
+        <p>Email</p>
         <%= f.input :email,
                     label: false,
                     required: true,
                     autofocus: true,
                     input_html: { autocomplete: "email" }%>
-        <p>Password</p> 
+        <p>Password</p>
         <%= f.input :password,
                     required: true,
                     label: false,
                     hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                     input_html: { autocomplete: "new-password" } %>
-        <p>Password confirmation</p> 
+        <p>Password confirmation</p>
         <%= f.input :password_confirmation,
                     required: true,
                     label: false,
@@ -30,7 +30,7 @@
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Sign up", class: "btn btn-gradient" %>
+        <%= f.button :submit, "Sign up", class: "btn btn-cta", id: "btn-small" %>
       </div>
     <% end %>
 
