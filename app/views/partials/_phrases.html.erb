@@ -1,5 +1,5 @@
 <% if left_grid.game.ongoing %>
-  <p style="font-size:18px; margin:20px"><%= left_grid.playing ? "Your turn to play, aim wisely" : "Waiting for #{right_grid.user.username} to play" %></p>
+  <div class="messages-top"><%= left_grid.playing ? "Your turn to play, aim wisely" : "Waiting for #{right_grid.user.username} to play" %></div>
 <% else  %>
-  <p style="font-size:18px; margin:20px"><%= "The battle is over, play again." %></p>
+  <div class="messages-top"><%= "The battle is over, play again." %></div>
 <% end %>
