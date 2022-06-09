@@ -48,7 +48,6 @@ class CellsController < ApplicationController
     # Pour régler le problème des cellules qui partent en couille.
     cells_opponent = opponent_grid.ordered_cells
     cells_current_user = user_grid.ordered_cells
-
     # Action Cable
     GameChannel.broadcast_to(
       @game,
@@ -64,7 +63,9 @@ class CellsController < ApplicationController
         paper_ball_throw: paper_ball_throw,
         grid_target: opponent_grid.id,
         waiting_cells: waiting_cells,
-        next_player: "It's #{next_player.username}'s turn!"
+        next_player: "It's #{next_player.username}'s turn!",
+        trophy_image: render_to_string(partial: "shared/trophy"),
+        defeat_image: render_to_string(partial: "shared/defeat")
       }
     )
     respond_to do |format|

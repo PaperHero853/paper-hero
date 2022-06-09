@@ -7,6 +7,8 @@ export default class extends Controller {
   static values = { gameId: Number, currentUserId: Number }
 
   connect() {
+
+
     this.channel = consumer.subscriptions.create(
       { channel: "GameChannel", id: this.gameIdValue },
     //   { received: data => console.log(data) }
@@ -19,10 +21,9 @@ export default class extends Controller {
           this.myModal.show();
           const title = document.getElementById("staticBackdropLabel")
           if (this.currentUserIdValue === data.current_user_id) {
-            title.innerHTML = "<img class='result-game' src='/assets/trophy_new.png'> Victory! <img class='result-game' src='/assets/trophy_new.png'>";
+            title.innerHTML = `${data.trophy_image} Victory! ${data.trophy_image} `;
           } else {
-            title.innerHTML = "<img class='result-game' src='/assets/disappointed-face.png'> Game over... <img class='result-game' src='/assets/disappointed-face.png'>";
-
+            title.innerHTML = `${data.defeat_image} Game over... ${data.defeat_image} `;
           }
         } else {
           if (data.paper_ball_throw) {
