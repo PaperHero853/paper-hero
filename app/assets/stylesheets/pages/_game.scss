@@ -10,12 +10,24 @@
     margin: 0px;
   }
 }
+
+h1 {
+  margin: 0px 20px !important;
+}
+
 h2 {
   font-size: 1.5rem;
 }
 
 p {
   font-size: 0.8rem;;
+}
+.countings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0 15px;
+  font-size: 1rem;
 }
 
 // Small devices (landscape phones, 700px and up)

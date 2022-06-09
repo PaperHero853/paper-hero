@@ -1,6 +1,5 @@
 .chatroom {
   background: white;
-  margin-top: 9px;
   height: 80vh;
   width: 35%;
   min-width: 200px;
@@ -8,8 +7,8 @@
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  margin: 0px;
-  padding: 10px;
+  margin: 10px 0px;
+  padding: 0px 10px;
 
   h1 {
     border-bottom: 1px solid $gray-200;
