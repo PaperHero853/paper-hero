@@ -4,9 +4,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title" id="staticBackdropLabel"></h1>
-        <a href=<%="/users/#{@grid_current_user.user.id}"%> type="button" class="btn-close"></a>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer py-5">
         <%= link_to "Play again!", "/users/#{@grid_current_user.user.id}", class: "btn btn-cta" %>
       </div>
     </div>
