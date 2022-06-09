@@ -13,15 +13,6 @@ export default class extends Controller {
     //   { received: data => this.userTarget.innerHTML = data.left_grid }
       { received: data => {
         console.log(data.paper_ball_throw);
-        if (this.currentUserIdValue === data.current_user_id) {
-          this.currentUserTarget.innerHTML = data.current_user_left_grid;
-          this.opponentTarget.innerHTML = data.current_user_right_grid;
-        } else {
-          this.currentUserTarget.innerHTML = data.left_grid;
-          this.opponentTarget.innerHTML = data.right_grid;
-          this.buttonTarget.innerHTML = data.button;
-          this.leftphraseTarget.innerHTML = data.leftphrase;
-        }
         if (!data.ongoing) {
           this.myModal = new Modal(document.getElementById('victory_modal'), {
             keyboard: false
@@ -29,41 +20,57 @@ export default class extends Controller {
           this.myModal.show();
         } else {
           if (data.paper_ball_throw) {
-            this.throwPaperBalls(data.grid_target)
-
+            if (this.currentUserIdValue === data.current_user_id){
+              this.throwFromLeft(data)
+              setTimeout(() => {
+                this.currentUserTarget.innerHTML = data.current_user_left_grid;
+                this.opponentTarget.innerHTML = data.current_user_right_grid;
+                this.leftphraseTarget.innerHTML = data.user_phrase;
+              }, 2000);
+            } else {
+              this.throwFromRight(data)
+              setTimeout(() => {
+                this.currentUserTarget.innerHTML = data.left_grid;
+                this.opponentTarget.innerHTML = data.right_grid;
+                this.buttonTarget.innerHTML = data.button;
+                this.leftphraseTarget.innerHTML = data.opponent_phrase;
+              }, 2000);
+            }
+          } else if (this.currentUserIdValue === data.current_user_id){
+            this.currentUserTarget.innerHTML = data.current_user_left_grid;
+            this.opponentTarget.innerHTML = data.current_user_right_grid;
           }
         }
-        }
-      }
+      }}
     )
-    // console.log("Ready to play !")
   }
 
-  throwPaperBalls(target) {
-    console.log(target)
-    console.log("lancé de bouletteeeeeesss")
-    console.log(this.gridTargets);
-    const gridToTarget = this.gridTargets.find((grid) => grid.dataset.gridId === `${target}`)
-    console.log(gridToTarget);
-    const tds = gridToTarget.querySelectorAll('td')
-    const randomTds = this.getRandomElements(tds)
-    console.log(randomTds);
-    randomTds.forEach((el) => el.classList.add('paper-animation'))
-
+  currentUserGridRefresh(data){
+    this.currentUserTarget.innerHTML = data.current_user_left_grid;
+    this.opponentTarget.innerHTML = data.current_user_right_grid;
   }
 
-  getRandomElements(elements) {
-    const randomElements = []
-    for (let index = 0; index < 4; index++) {
-      const randomNumber = Math.floor(Math.random() * elements.length)
-      const randomElement = elements[randomNumber];
-      console.log(randomElement);
-      randomElements.push(randomElement)
-    }
-    return randomElements
+  opponentUserGridRefresh(data){
+    this.currentUserTarget.innerHTML = data.left_grid;
+    this.opponentTarget.innerHTML = data.right_grid;
+    this.buttonTarget.innerHTML = data.button;
+    this.leftphraseTarget.innerHTML = data.leftphrase;
   }
-  // disconnect() {
-  //   console.log("Unsubscribed from the game")
-  //   this.channel.unsubscribe()
-  // }
+
+  throwFromLeft(data) {
+    data.waiting_cells.forEach(id => {
+      console.log(id);
+      const waitingTds = document.querySelector(`#cell-${id}`)
+      console.log(waitingTds);
+      waitingTds.classList.add('anim-left')
+    })
+  }
+  throwFromRight(data) {
+    data.waiting_cells.forEach(id => {
+      console.log(id);
+      const waitingTds = document.querySelector(`#cell-${id}`)
+      console.log(waitingTds);
+      waitingTds.classList.add('anim-right')
+    })
+  }
 }

@@ -1,57 +1,68 @@
- 
 td {
   position: relative;
 }
-td.paper-animation::after {
+
+td.anim-right::after {
   content: "";
   width: 100%;
   height: 100%;
   position: absolute;
-  background: url('animball.png') no-repeat 0 0;
+  background: url('Crumpled-Paper.png') no-repeat 0 0;
   background-size: contain;
   z-index: 1000;
-  animation-duration: 2s;
+  animation:2s throw-right linear;
   animation-iteration-count: 1;
-  animation-name: throw;
+  animation-direction: normal;
   animation-timing-function: ease-in-out;
+  z-index: 1000;
 }
-td.anim-1::after {
-  animation-name: throw;
+
+td.anim-left::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url('Crumpled-Paper.png') no-repeat 0 0;
+  background-size: contain;
+  z-index: 1000;
+  animation:2s throw-left linear;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-timing-function: ease-in-out;
+  z-index: 1000;
 }
-td.anim-2::after {
-  animation-name: throw-2;
-}
-@keyframes throw {
+
+@keyframes throw-right {
   0% {
-    left: -500%; 
-    top: -60%;
+    right: -1000px;
+    top: 100%;
     transform: rotate(0deg);
   }
- 
+
   50% {
-    top: -270%;
+    width: 2000%
   }
- 
+
+  100% {
+    right: 0;
+    top: 0;
+    transform: rotate(360deg);
+  }
+}
+@keyframes throw-left {
+  0% {
+    left: -1000px;
+    top: 100%;
+    transform: rotate(0deg);
+  }
+
+  50% {
+    width: 2000%
+  }
+
   100% {
     left: 0;
     top: 0;
-    transform: rotate(720deg);
-  }
-}
-@keyframes throw-2 {
-  0% {
-    right: -500%;
-    top: -60%;
-    transform: rotate(0deg);
-  }
- 
-  50% {
-    top: -270%;
-  }
- 
-  100% {
-    left: 0;
-    top: 0;
-    transform: rotate(720deg);
+    transform: rotate(360deg);
   }
 }

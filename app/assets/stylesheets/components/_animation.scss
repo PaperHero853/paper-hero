@@ -1,22 +1,26 @@
-#img {
-  animation:4s rotate infinite linear;
-  /* animation-direction: alternate; */
+#throw{
+  position: absolute;
+  left: -100px;
+  z-index: 1000;
+  animation:4s rotate linear;
+  animation-direction: normal;
 }
 
-@keyframes rotate{
-
-  /* 100%{ transform:rotate(360deg) } */
-
+@keyframes rotate {
   from {
+    display: block;
     width: 0%;
+    height: 0%;
   }
-
   50% {
+    display: block;
     width: 50%;
+    height: 50%;
   }
-
   to {
-    transform:translateX(800px) translateY(300px) rotate(720deg);
+    display: none;
+    transform:translateX(1200px) translateY(100px) rotate(720deg);
     width: 0%;
+    height: 0%;
   }
 }
