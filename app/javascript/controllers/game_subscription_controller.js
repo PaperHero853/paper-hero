@@ -30,14 +30,18 @@ export default class extends Controller {
               this.throwFromLeft(data)
               setTimeout(() => {
                 this.currentUserTarget.innerHTML = data.current_user_left_grid;
+                this.currentUserTarget.classList.remove("opacity");
                 this.opponentTarget.innerHTML = data.current_user_right_grid;
+                this.opponentTarget.classList.add("opacity");
                 this.playingTarget.innerHTML = data.next_player;
               }, 2000);
             } else {
               this.throwFromRight(data)
               setTimeout(() => {
                 this.currentUserTarget.innerHTML = data.left_grid;
+                this.currentUserTarget.classList.add("opacity");
                 this.opponentTarget.innerHTML = data.right_grid;
+                this.opponentTarget.classList.remove("opacity");
                 this.playingTarget.innerHTML = data.next_player;
               }, 2000);
             }
