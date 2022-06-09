@@ -7,17 +7,15 @@
   <div class="game-platform">
     <div class="game-grid user-grid">
       <h1 style="margin:20px"><%= @grid_current_user.user.username %></h1>
-      <div data-game-subscription-target="leftphrase">
-        <%= render "partials/phrases", left_grid: @grid_current_user, right_grid: @grid_opponent %>
-      </div>
-      <div data-game-subscription-target="currentUser">
+      <p data-game-subscription-target="playing">It's <%= @grid_current_user.playing ? @grid_current_user.user.username : @grid_opponent.user.username %>'s turn!</p>
+      <div data-game-subscription-target="currentUser" class=<%=  @grid_current_user.playing ? "opacity" : "" %>>
         <%= render 'partials/grid', left_grid: @grid_current_user, right_grid: @grid_opponent, visible: true, grid_cells: @cells_current_user %>
       </div>
     </div>
     <div class="game-grid opponent-grid">
       <h1 style="margin:20px"><%= @grid_opponent.user.username %></h1>
       <div class="messages-top"> ...</div>
-      <div data-game-subscription-target="opponent">
+      <div data-game-subscription-target="opponent" class=<%= @grid_opponent.playing ? "opacity" : "" %>>
         <%= render 'partials/grid', left_grid: @grid_opponent, right_grid: @grid_current_user, visible: false, grid_cells: @cells_opponent %>
       </div>
     </div>

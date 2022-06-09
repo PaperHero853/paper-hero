@@ -50,6 +50,10 @@ td.anim-left2::after {
     top: 0;
     transform: rotate(360deg);
   }
+
+  100% {
+    opacity: 0;
+  }
 }
 @keyframes throw-left {
   0% {
