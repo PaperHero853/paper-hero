@@ -27,10 +27,16 @@ export default class extends Controller {
             keyboard: false
           })
           this.myModal.show();
+          const title = document.getElementById("staticBackdropLabel")
+          if (this.currentUserIdValue === data.current_user_id) {
+            title.innerHTML = "<img class='result-game' src='/assets/trophy_new.png'>  Victory!  <img class='result-game' src='/assets/trophy_new.png'>";
+          } else {
+            title.innerHTML = "<img class='result-game' src='/assets/disappointed-face.png'> Game over... <img class='result-game' src='/assets/disappointed-face.png'>";
+
+          }
         } else {
           if (data.paper_ball_throw) {
             this.throwPaperBalls(data.grid_target)
-
           }
         }
         }
