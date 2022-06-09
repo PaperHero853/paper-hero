@@ -18,10 +18,12 @@ class CellsController < ApplicationController
     else
       paper_ball_throw = true
       opponent_grid.shot_count = 0
+      waiting_cells = []
       Cell.where(state: "waiting").each do |cell|
         cell.state = "visible"
         cell.visible = true
         cell.save
+        waiting_cells << cell.id
       end
       opponent_grid.update(playing: true)
       user_grid.update(playing: false)
@@ -54,12 +56,14 @@ class CellsController < ApplicationController
         left_grid: render_to_string(partial: "partials/grid", locals: { left_grid: opponent_grid, right_grid: user_grid, visible: true, grid_cells: cells_opponent, paper_ball_throw: paper_ball_throw }),
         right_grid: render_to_string(partial: "partials/grid", locals: { left_grid: user_grid, right_grid: opponent_grid, visible: false, grid_cells: cells_current_user }),
         button: render_to_string(partial: "partials/button", locals: { game: user_grid.game }),
-        leftphrase: render_to_string(partial: "partials/phrases", locals: { left_grid: opponent_grid, right_grid: user_grid }),
+        opponent_phrase: render_to_string(partial: "partials/phrases", locals: { left_grid: opponent_grid, right_grid: user_grid }),
+        user_phrase: render_to_string(partial: "partials/phrases", locals: { left_grid: user_grid, right_grid: opponent_grid }),
         current_user_left_grid: render_to_string(partial: "partials/grid", locals: { left_grid: user_grid, right_grid: opponent_grid, visible: true, grid_cells: cells_current_user }),
         current_user_right_grid: render_to_string(partial: "partials/grid", locals: { left_grid: opponent_grid, right_grid: user_grid, visible: false, grid_cells: cells_opponent, paper_ball_throw: paper_ball_throw }),
         ongoing: game_ongoing,
         paper_ball_throw: paper_ball_throw,
-        grid_target: opponent_grid.id
+        grid_target: opponent_grid.id,
+        waiting_cells: waiting_cells
       }
     )
     respond_to do |format|
