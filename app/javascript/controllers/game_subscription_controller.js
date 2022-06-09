@@ -3,7 +3,7 @@ import consumer from "../channels/consumer"
 import { Modal } from 'bootstrap'
 
 export default class extends Controller {
-  static targets = ["currentUser", "opponent", "button", "leftphrase", "rightphrase", "grid"]
+  static targets = ["currentUser", "opponent", "button", "leftphrase", "rightphrase", "grid", "playing"]
   static values = { gameId: Number, currentUserId: Number }
 
   connect() {
@@ -31,15 +31,14 @@ export default class extends Controller {
               setTimeout(() => {
                 this.currentUserTarget.innerHTML = data.current_user_left_grid;
                 this.opponentTarget.innerHTML = data.current_user_right_grid;
-                this.leftphraseTarget.innerHTML = data.user_phrase;
+                this.playingTarget.innerHTML = data.next_player;
               }, 2000);
             } else {
               this.throwFromRight(data)
               setTimeout(() => {
                 this.currentUserTarget.innerHTML = data.left_grid;
                 this.opponentTarget.innerHTML = data.right_grid;
-                this.buttonTarget.innerHTML = data.button;
-                this.leftphraseTarget.innerHTML = data.opponent_phrase;
+                this.playingTarget.innerHTML = data.next_player;
               }, 2000);
             }
           } else if (this.currentUserIdValue === data.current_user_id){

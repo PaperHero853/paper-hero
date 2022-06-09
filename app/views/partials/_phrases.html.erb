@@ -1,5 +1,10 @@
 <% if left_grid.game.ongoing %>
-  <p style="font-size:18px; margin:20px"><%= left_grid.playing ? "Your turn to play, aim wisely" : "Waiting for #{right_grid.user.username} to play" %></p>
+  <%# <p style="font-size:18px; margin:20px"><%= left_grid.playing ? "Your turn to play, aim wisely" : "Waiting for #{right_grid.user.username} to play" %>
+    <% if left_grid.playing  %>
+      <div style="font-size:18px; margin:20px" class= "text_anim"> Your turn to play, aim wisely </div>
+    <% else  %>
+      <p style="font-size:18px; margin:20px" class= "animate-charcter"><%= "Waiting for #{right_grid.user.username} to play" %></p>
+    <% end %>
 <% else  %>
   <p style="font-size:18px; margin:20px"><%= "The battle is over, play again." %></p>
 <% end %>

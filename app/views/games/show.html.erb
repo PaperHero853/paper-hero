@@ -7,9 +7,7 @@
   <div class="game-platform">
     <div class="game-grid user-grid">
       <h1 style="margin:20px"><%= @grid_current_user.user.username %></h1>
-      <div data-game-subscription-target="leftphrase">
-        <%= render "partials/phrases", left_grid: @grid_current_user, right_grid: @grid_opponent %>
-      </div>
+      <p data-game-subscription-target="playing">Salut</p>
       <div data-game-subscription-target="currentUser">
         <%= render 'partials/grid', left_grid: @grid_current_user, right_grid: @grid_opponent, visible: true, grid_cells: @cells_current_user %>
       </div>
