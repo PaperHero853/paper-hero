@@ -64,7 +64,7 @@ class CellsController < ApplicationController
         paper_ball_throw: paper_ball_throw,
         grid_target: opponent_grid.id,
         waiting_cells: waiting_cells,
-        next_player: "Au tour de #{next_player.username}!"
+        next_player: "It's #{next_player.username}'s turn!"
       }
     )
     respond_to do |format|

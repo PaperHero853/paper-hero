@@ -7,7 +7,7 @@
   <div class="game-platform">
     <div class="game-grid user-grid">
       <h1 style="margin:20px"><%= @grid_current_user.user.username %></h1>
-      <p data-game-subscription-target="playing">Au tour de <%= @grid_current_user.playing ? @grid_current_user.user.username : @grid_opponent.user.username %> !</p>
+      <p data-game-subscription-target="playing">It's <%= @grid_current_user.playing ? @grid_current_user.user.username : @grid_opponent.user.username %>'s turn!</p>
       <div data-game-subscription-target="currentUser" class=<%=  @grid_current_user.playing ? "opacity" : "" %>>
         <%= render 'partials/grid', left_grid: @grid_current_user, right_grid: @grid_opponent, visible: true, grid_cells: @cells_current_user %>
       </div>
