@@ -32,7 +32,7 @@ class Game < ApplicationRecord
     output = []
     case self.desks
     when 2
-      output = [[3, 2], [2, 1]]
+      output = [[2, 2], [2, 1]]
     when 3
       output = [[3, 2], [2, 2], [2, 1]]
     when 4
@@ -40,7 +40,7 @@ class Game < ApplicationRecord
     when 5
       output = [[3, 2], [2, 2], [2, 2], [2, 1], [2, 1]]
     when 6
-      output = [[3, 3], [3, 2], [2, 2], [2, 2], [2, 1], [2, 1]]
+      output = [[3, 2], [2, 2], [2, 2], [2, 2], [2, 1], [2, 1]]
     else
       output = [1, 1]
     end
