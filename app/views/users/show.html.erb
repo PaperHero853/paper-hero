@@ -14,14 +14,25 @@
     </div>
   </div>
   <div class="user-show">
-    <h1 class="text-dark">Games history:</h1>
+    <h2 class="text-dark"><strong>The rules:</strong></h2>
+    <br>
+    <ol>
+      <li>Cover your opponent's desks with paper before they get yours!</li>
+      <li>Click 4 times on the opponent's grid to target their office space.</li>
+      <li>The grid reveals if you hitted a desk or missed.</li>
+      <li>Wait for your opponent to play and try again!</li>
+      <li>The first player to cover all the opponent's desks with paper wins.</li>
+    </ol>
+  </div>
+  <div class="user-show">
+    <h2 class="text-dark">Games history:</h2>
     <hr>
     <div>
       <% @my_ended_games.each do |game| %>
         <div class="card-history mb-2">
           <%= image_tag game.my_grid(current_user).win? ? "trophy_new.png" : "disappointed-face.png", class:"result-game" %>
           <div class="card-history-infos">
-            <h3> VS <%= "#{game.opponent_name(current_user)}" %> </h3>
+            <h4> VS <%= "#{game.opponent_name(current_user)}" %> </h4>
             <p> <%= game.updated_at %></p>
           </div>
         </div>
