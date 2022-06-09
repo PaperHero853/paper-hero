@@ -1,15 +1,14 @@
 .chatroom {
   background: white;
-  margin-top: 9px;
   height: 80vh;
-  width: 35%;
+  width: 35vw;
   min-width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  margin: 0px;
-  padding: 10px;
+  margin: 10px 0px;
+  padding: 0px 10px;
 
   h1 {
     border-bottom: 1px solid $gray-200;
@@ -31,5 +30,11 @@
     .form-group {
       margin-bottom: 0;
     }
+  }
+}
+
+@media (min-width: 1900px) {
+  .chatroom {
+    min-width: 400px;
   }
 }
