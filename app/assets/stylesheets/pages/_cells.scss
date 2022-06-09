@@ -14,10 +14,17 @@ td {
 }
 
 .full {
-  // background-color: #BE6555;
-  background-size: contain;
-  background-image: url("brownpxl.jpg");
-  // border-radius: 10px;
+  position: relative;
+  &::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #93775f;
+    border-radius: 10px;
+  }
 }
 
 .waiting {
