@@ -31,11 +31,11 @@ class GamesController < ApplicationController
         redirect_to game_path(@game)
       else
         flash[:notice] = "Sorry, something went wrong during the game creation!"
-        render :new
+        redirect_to new_game_path
       end
     else
       flash[:notice] = "Sorry, you cannot play against yourself!"
-      render :new
+      redirect_to new_game_path
     end
   end
 

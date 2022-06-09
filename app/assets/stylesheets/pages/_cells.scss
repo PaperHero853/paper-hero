@@ -17,17 +17,17 @@ td {
 }
 
 .waiting {
-  // background-color: orange;
-  background-size: cover;
-  background-image: url("waiting.jpg")
+  background-color: orange;
+  // background-size: cover;
+  // background-image: url("waiting.jpg")
 }
 
 .missed {
   background-size: cover;
-  background-image: url("redv2.jpg");
+  background-image: url("Emoji-red.jpeg");
 }
 
 .hit {
   background-size: cover;
-  background-image: url("greenv2.jpg");
+  background-image: url("Emoji-green.jpg");
 }

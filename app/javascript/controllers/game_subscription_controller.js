@@ -12,12 +12,18 @@ export default class extends Controller {
     //   { received: data => console.log(data) }
     //   { received: data => this.userTarget.innerHTML = data.left_grid }
       { received: data => {
-        console.log(data.paper_ball_throw);
         if (!data.ongoing) {
           this.myModal = new Modal(document.getElementById('victory_modal'), {
             keyboard: false
           })
           this.myModal.show();
+          const title = document.getElementById("staticBackdropLabel")
+          if (this.currentUserIdValue === data.current_user_id) {
+            title.innerHTML = "<img class='result-game' src='/assets/trophy_new.png'> Victory! <img class='result-game' src='/assets/trophy_new.png'>";
+          } else {
+            title.innerHTML = "<img class='result-game' src='/assets/disappointed-face.png'> Game over... <img class='result-game' src='/assets/disappointed-face.png'>";
+
+          }
         } else {
           if (data.paper_ball_throw) {
             if (this.currentUserIdValue === data.current_user_id){
@@ -53,6 +59,7 @@ export default class extends Controller {
       waitingTds.classList.add('anim-left')
     })
   }
+
   throwFromRight(data) {
     data.waiting_cells.forEach(id => {
       console.log(id);

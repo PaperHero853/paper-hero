@@ -14,3 +14,8 @@ ActiveStorage.start()
 
 import "controllers"
 import "bootstrap"
+import { gameModeDetails } from '../components/game_mode_details'
+
+document.addEventListener('turbolinks:load', () => {
+  gameModeDetails();
+})
