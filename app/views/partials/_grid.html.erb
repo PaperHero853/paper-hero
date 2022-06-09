@@ -54,7 +54,11 @@
   </div>
   <% if left_grid.shot_count == 0 %>
     <% total = left_grid.hit_count %>
+  <% else %>
+  <% total = "pending" %>
   <% end %>
-  <p>  Total hits: <%= total %>  </p>
-  <p>  Current hits: <%= left_grid.shot_count %>  </p>
+  <div class="countings">
+    <div>Total hits: <%= total %></div>
+    <div>Current hits: <%= left_grid.shot_count %></div>
+  </div>
 <% end %>

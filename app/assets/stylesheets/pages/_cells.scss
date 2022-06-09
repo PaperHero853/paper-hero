@@ -1,5 +1,6 @@
 td {
   border:1px solid;
+  border-color: gray;
   .cell-link {
     // height: 30px;
     // width: 30px;
@@ -9,25 +10,35 @@ td {
 }
 
 .not-tested {
-  background-color: #e2a24faa;
+  background-color: rgb(232, 232, 232);
 }
 
 .full {
-  background-color: #BE6555;
+  position: relative;
+  &::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #e39f64;
+    border-radius: 10px;
+  }
 }
 
 .waiting {
-  background-color: orange;
-  // background-size: cover;
-  // background-image: url("waiting.jpg")
+  // background-color: orange;
+  background-size: contain;
+  background-image: url("sablier2.png")
 }
 
 .missed {
-  background-size: cover;
-  background-image: url("Emoji-red.jpeg");
+  background-size: contain;
+  background-image: linear-gradient(rgba(212, 35, 35, 0.3), rgba(173, 173, 173, 0.3)),url("monsterpixel.png");
 }
 
 .hit {
-  background-size: cover;
-  background-image: url("Emoji-green.jpg");
+  background-size: contain;
+  background-image: linear-gradient(rgba(12, 166, 71, 0.2), rgba(170, 170, 170, 0.2)),url("favicon-32x32.png");
 }
