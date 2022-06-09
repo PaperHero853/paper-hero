@@ -45,18 +45,6 @@ export default class extends Controller {
     )
   }
 
-  currentUserGridRefresh(data){
-    this.currentUserTarget.innerHTML = data.current_user_left_grid;
-    this.opponentTarget.innerHTML = data.current_user_right_grid;
-  }
-
-  opponentUserGridRefresh(data){
-    this.currentUserTarget.innerHTML = data.left_grid;
-    this.opponentTarget.innerHTML = data.right_grid;
-    this.buttonTarget.innerHTML = data.button;
-    this.leftphraseTarget.innerHTML = data.leftphrase;
-  }
-
   throwFromLeft(data) {
     data.waiting_cells.forEach(id => {
       console.log(id);
