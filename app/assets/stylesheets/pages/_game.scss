@@ -9,14 +9,20 @@
     border: 3px solid black;
     margin: 0px;
   }
+  h1 {
+    margin: 0px 20px !important;
+  }
 }
 
-h1 {
-  margin: 0px 20px !important;
-}
 
 h2 {
   font-size: 1.5rem;
+}
+
+.messages-top {
+  font-size:18px;
+  margin: 20px;
+  height: 40px;
 }
 
 p {
@@ -36,4 +42,23 @@ p {
     flex-direction:column;
     justify-content:space-around;
   }
+}
+
+@media (min-width: 1900px) {
+  .messages-top {
+    font-size:18px;
+    margin: 20px;
+    margin-top: 30px;
+    height: 60px;
+  }
+
+  .countings {
+    padding: 10px 15px;
+    margin-top: 40px;
+  }
+
+  .game-grid {
+    margin: 0 0 0 60px;
+  }
+
 }

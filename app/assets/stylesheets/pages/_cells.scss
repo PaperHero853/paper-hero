@@ -27,11 +27,11 @@ td {
 }
 
 .missed {
-  background-size: cover;
-  background-image: url("monsterpixel.png");
+  background-size: contain;
+  background-image: linear-gradient(rgba(212, 35, 35, 0.3), rgba(173, 173, 173, 0.3)),url("monsterpixel.png");
 }
 
 .hit {
-  background-size: cover;
-  background-image: url("favicon-32x32.png");
+  background-size: contain;
+  background-image: linear-gradient(rgba(12, 166, 71, 0.2), rgba(170, 170, 170, 0.2)),url("favicon-32x32.png");
 }

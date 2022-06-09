@@ -1,7 +1,7 @@
 .chatroom {
   background: white;
   height: 80vh;
-  width: 35%;
+  width: 35vw;
   min-width: 200px;
   display: flex;
   flex-direction: column;
@@ -30,5 +30,11 @@
     .form-group {
       margin-bottom: 0;
     }
+  }
+}
+
+@media (min-width: 1900px) {
+  .chatroom {
+    min-width: 400px;
   }
 }
