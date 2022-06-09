@@ -3,16 +3,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-      <% if @grid_current_user == Grid.find_by(game: @game, playing: true) %>
-         <h1 class="modal-title" id="staticBackdropLabel">Victory!</h1>
-      <% else %>
-        <h1 class="modal-title" id="staticBackdropLabel">Game over...</h1>
-      <% end %>
+        <h1 class="modal-title" id="staticBackdropLabel"></h1>
         <a href=<%="/users/#{@grid_current_user.user.id}"%> type="button" class="btn-close"></a>
-      </div>
-      <div class="modal-body">
-        <%= cl_image_tag(Grid.find_by(game: @game, playing: true).user.photo.key, class: 'avatar-large') %>
-        <h3><%= Grid.find_by(game: @game, playing: true).user.username %> wins the game.</h3>
       </div>
       <div class="modal-footer">
         <%= link_to "Play again!", "/users/#{@grid_current_user.user.id}", class: "btn btn-cta" %>

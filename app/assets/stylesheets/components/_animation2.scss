@@ -8,6 +8,7 @@ td.paper-animation::after {
   height: 100%;
   position: absolute;
   background: url('Crumpled-Paper.png') no-repeat 0 0;
+
   background-size: contain;
   z-index: 1000;
   animation-duration: 2s;
