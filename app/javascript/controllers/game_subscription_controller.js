@@ -60,7 +60,9 @@ export default class extends Controller {
       console.log(id);
       const waitingTds = document.querySelector(`#cell-${id}`)
       console.log(waitingTds);
-      waitingTds.classList.add('anim-left')
+      if (waitingTds) {
+        waitingTds.classList.add('anim-left')
+      }
     })
   }
 
@@ -69,7 +71,9 @@ export default class extends Controller {
       console.log(id);
       const waitingTds = document.querySelector(`#cell-${id}`)
       console.log(waitingTds);
-      waitingTds.classList.add('anim-right')
+      if (waitingTds) {
+        waitingTds.classList.add('anim-right')
+      }
     })
   }
 }

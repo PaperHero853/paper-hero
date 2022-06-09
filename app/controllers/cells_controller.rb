@@ -19,7 +19,7 @@ class CellsController < ApplicationController
       paper_ball_throw = true
       opponent_grid.shot_count = 0
       waiting_cells = []
-      Cell.where(state: "waiting").each do |cell|
+      opponent_grid.cells.where(state: "waiting").each do |cell|
         cell.state = "visible"
         cell.visible = true
         cell.save
