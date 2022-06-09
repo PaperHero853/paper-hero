@@ -12,7 +12,7 @@ export default class extends Controller {
     //   { received: data => console.log(data) }
     //   { received: data => this.userTarget.innerHTML = data.left_grid }
       { received: data => {
-        console.log(data.paper_ball_throw);
+        // console.log(data.paper_ball_throw);
         if (this.currentUserIdValue === data.current_user_id) {
           this.currentUserTarget.innerHTML = data.current_user_left_grid;
           this.opponentTarget.innerHTML = data.current_user_right_grid;
@@ -55,6 +55,9 @@ export default class extends Controller {
     const randomTds = this.getRandomElements(tds)
     console.log(randomTds);
     randomTds.forEach((el) => el.classList.add('paper-animation'))
+    setTimeout(() => {
+      randomTds.forEach((el) => el.classList.remove('paper-animation')) 
+    }, 2500)
 
   }
 
