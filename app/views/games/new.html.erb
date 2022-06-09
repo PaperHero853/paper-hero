@@ -13,17 +13,31 @@
             placeholder: "Find your opponent" %>
           <%= f.submit "Search", class: "btn btn-cta", id:"btn-small" %>
         </div>
-      <% end %> 
+      <% end %>
       <%= simple_form_for(@game) do |f| %>
         <div class="game-inline-block">
           <div class="game-info">
             <%= f.submit "Create game", class: "btn btn-cta", id:"btn-small" %>
             <%= f.input :grid_size, label: "Game Mode", as: :range, input_html: { min: '6', max: '14', step: '4', value: '10' } %>
-            <div style="display:flex;flex-direction:row;justify-content:space-between;"><p>Easy</p><p>Medium</p><p>Hard</p></div>
+            <div style="display:flex;flex-direction:row;justify-content:space-between;"><p>Easy</p><p>Normal</p><p>Hard</p></div>
             <%#= f.input :desks, label: "Number of desks:", as: :radio_buttons, collection: 2..6 %>
           </div>
+          <%# raise %>
+          <div class="game-mode-details">
+            <h3>Normal mode:</h3>
+            <hr>
+            <ul>
+              <li>Grid size: 10x10</li>
+              <li>Office space: 4 desks</li>
+                <ul>
+                  <li>1 manager desk (3x2)</li>
+                  <li>2 employee desk (2x2)</li>
+                  <li>1 intern desk (2x1)</li>
+                </ul>
+            </ul>
+          </div>
           <div class="users-list" data-controller="radio-button">
-            <h4>Users</h4>
+            <h3>Users</h3>
             <%= f.association :users,
               as: :radio_buttons,
               label: "",
