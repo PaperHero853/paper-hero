@@ -1,5 +1,6 @@
 td {
   border:1px solid;
+  border-color: gray;
   .cell-link {
     // height: 30px;
     // width: 30px;
@@ -9,25 +10,28 @@ td {
 }
 
 .not-tested {
-  background-color: #e2a24faa;
+  background-color: white;
 }
 
 .full {
-  background-color: #BE6555;
+  // background-color: #BE6555;
+  background-size: contain;
+  background-image: url("brownpxl.jpg");
+  // border-radius: 10px;
 }
 
 .waiting {
-  background-color: orange;
-  // background-size: cover;
-  // background-image: url("waiting.jpg")
+  // background-color: orange;
+  background-size: contain;
+  background-image: url("sablier2.png")
 }
 
 .missed {
   background-size: cover;
-  background-image: url("Emoji-red.jpeg");
+  background-image: url("monsterpixel.png");
 }
 
 .hit {
   background-size: cover;
-  background-image: url("Emoji-green.jpg");
+  background-image: url("favicon-32x32.png");
 }
