@@ -1,6 +1,6 @@
 <% paper_ball_throw ||= false %>
 <% if left_grid.game.ongoing %>
-<div class="wrapper" 
+<div class="wrapper"
      data-grid-id="<%= left_grid.id %>"
      data-game-subscription-target="grid">
   <table class="game-table" style="margin:20px;--grid-size: <%= @game.grid_size %>">
@@ -10,36 +10,36 @@
       <% end %>
       <% if cell.visible %>
         <% if cell.hit %>
-          <td class="hit" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
+          <td class="hit" data-count=<%= left_grid.shot_count %> id="cell-<%= cell.id %>">
             <div class="cell-link"></div>
           </td>
         <% else %>
-          <td class="missed" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
+          <td class="missed" data-count=<%= left_grid.shot_count %> id="cell-<%= cell.id %>">
             <div class="cell-link"></div>
           </td>
         <% end %>
       <% else %>
         <% if visible %>
           <% if cell.full %>
-            <td class="full" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
+            <td class="full" data-count=<%= left_grid.shot_count %> id="cell-<%= cell.id %>">
               <div class="cell-link"></div>
             </td>
             <% else %>
-            <td class="not-tested" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
+            <td class="not-tested" data-count=<%= left_grid.shot_count %> id="cell-<%= cell.id %>">
               <div class="cell-link"></div>
             </td>
           <% end %>
         <% elsif left_grid.playing %>
-          <td class="not-tested" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
+          <td class="not-tested" data-count=<%= left_grid.shot_count %> id="cell-<%= cell.id %>">
             <div class="cell-link"></div>
           </td>
         <% elsif cell.state == "waiting" %>
-          <td class="waiting" data-anim-target="td" data-count=<%= left_grid.shot_count %>>
+          <td class="waiting" data-count=<%= left_grid.shot_count %> id="cell-<%= cell.id %>">
             <div class="cell-link"></div>
           </td>
         <% else %>
 
-          <td class="not-tested" data-anim-target="td">
+          <td class="not-tested" id="cell-<%= cell.id %>">
             <%= link_to cell_path(cell.id), remote: true do %>
               <div class="cell-link"></div>
             <% end %>
