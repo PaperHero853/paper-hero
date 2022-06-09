@@ -32,10 +32,14 @@ td.anim-2::after {
     top: -270%;
   }
  
-  100% {
+  99% {
     left: 0;
     top: 0;
     transform: rotate(720deg);
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 @keyframes throw-2 {
@@ -53,5 +57,6 @@ td.anim-2::after {
     left: 0;
     top: 0;
     transform: rotate(720deg);
+    opacity: 0;
   }
 }
