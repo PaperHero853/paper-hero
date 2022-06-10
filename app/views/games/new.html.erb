@@ -38,7 +38,7 @@
           </div>
           <div class="users-list" data-controller="radio-button">
             <h3>Users</h3>
-            <% other_users = @users.reject { |user| user == current_user} %>
+            <% other_users = @users.where.not(id: current_user.id) %>
             <%= f.association :users,
               as: :radio_buttons,
               label: "",
