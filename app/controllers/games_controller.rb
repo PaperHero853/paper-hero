@@ -10,7 +10,6 @@ class GamesController < ApplicationController
       @users = User.where("username ILIKE ?", "%#{@search_term}%")
     else
       @users = User.all
-      @other_users = @users.reject { |user| user == current_user}
     end
   end
 
